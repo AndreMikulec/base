@@ -72,6 +72,10 @@ deploy:
 ```
 then replaced the `deploy` section to
 ```
+artifacts:
+  - path: ..\BUILD
+    name: $(APPVEYOR_PROJECT_SLUG)_Dist_%archive%_%target%_%revision%
+
 deploy:
   release: $(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%
   provider: GitHub
@@ -84,10 +88,6 @@ deploy:
     branch: master
     # I do not care about tags
     appveyor_repo_tag: false
-
-artifacts:
-  - path: dist
-    name: $(APPVEYOR_PROJECT_SLUG)_Dist_%archive%_%target%_%revision%
 ```
 
 # R for Windows [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rwinlib/base)](https://ci.appveyor.com/project/jeroen/base)
