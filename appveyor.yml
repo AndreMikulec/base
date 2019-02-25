@@ -33,25 +33,51 @@ after_build:
   - cd %builddir%
   - md5sum %target%-win.exe > md5sum.txt.%target%
   - cd %startdir%
+  - echo begin 7z of %target%-win.zip
+  - time
   - 7z a %target%-win.zip      %builddir%\%target%-win.exe %builddir%\md5sum.txt.%target% %builddir%\*.log %builddir%\*.html %builddir%\SVN-REVISION.* %builddir%\README.*
+  - time
+  - echo end   7z of %target%-win.zip
+  - echo begin 7z of %target%-FEobjs32.zip
+  - time
   - 7z a %target%-FEobjs32.zip %builddir%\R-source-win32\src\gnuwin32\front-ends\*.o
+  - time
+  - echo end   7z of %target%-FEobjs32.zip
+  - echo begin 7z of %target%-FEobjs64.zip
+  - time
   - 7z a %target%-FEobjs64.zip %builddir%\R-source-win64\src\gnuwin32\front-ends\*.o
+  - time
+  - echo end   7z of %target%-FEobjs64.zip
+  - echo begin 7z of logs.zip
+  - time
   - 7z a logs.zip              %builddir%\*.log
+  - time
+  - echo end   7z of logs.zip
+  - echo begin 7z of %archive%-%target%-win-pkgdebug.zip
+  - time
   - 7z a %archive%-%target%-win-pkgdebug.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip 
+  - time
+  - echo end   7z of %archive%-%target%-win-pkgdebug.zip
 
 artifacts:
   - path: "%archive%-%target%-win-pkgdebug.zip"
     name: "%archive%-%target%-win-pkgdebug.zip"
 
-deploy:
-  release: "$(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%"
-  provider: GitHub
-  auth_token:
-    secure: KzS1DumC2yBg2LGN9x3AemHFOjAdp+rD58rW5aGGpwW4Pfdwdm7AmRpYKprPY8Gs
-  artifact: "%archive%-%target%-win-pkgdebug.zip"
-  draft: false
-  prerelease: false
-  on:
-    branch: master
-    # I do not care about tags
-    appveyor_repo_tag: false
+# too much time?
+# too big for github?
+# too much network bandwidth usage?
+# something else?
+# 
+# deploy:
+#   release: "$(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%"
+#   provider: GitHub
+#   auth_token:
+#     secure: KzS1DumC2yBg2LGN9x3AemHFOjAdp+rD58rW5aGGpwW4Pfdwdm7AmRpYKprPY8Gs
+#   artifact: "%archive%-%target%-win-pkgdebug.zip"
+#   draft: false
+#   prerelease: false
+#   on:
+#     branch: master
+#     # I do not care about tags
+#     appveyor_repo_tag: false
+
