@@ -37,6 +37,9 @@ mkdir %R_NAME%
 :: Needed to fix tar symlinks
 set MSYS=winsymlinks:lnk
 tar -xf %SOURCEDIR%/%TARBALL% -C %R_NAME% --strip-components=1
+
+sed -i "s/-gdwarf-2/-ggdb -Og/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
+
 set XR_HOME=%R_HOME:\=/%
 set XHOME32=%HOME32:\=/%
 sed -e "s|@win@|%WIN%|" -e "s|@home@|%XR_HOME%|" -e "s|@home32@|%XHOME32%|" %SOURCEDIR%\files\MkRules.local.in > %R_HOME%/src/gnuwin32/MkRules.local
@@ -89,7 +92,7 @@ sed -i "s|LOCAL_SOFT =|#LOCAL_SOFT|" fixed/etc/Makeconf
 
 :: Build 32bit R version only
 IF "%WIN%"=="32" (
-make 32-bit > %BUILDDIR%/32bit.log 2>&1
+make 32-bit DEBUG=T > %BUILDDIR%/32bit.log 2>&1
 if %errorlevel% neq 0 (
 	echo ERROR: 'make 32-bit' failure! Inspect 32bit.log for details.
 	exit /b 2
@@ -101,7 +104,7 @@ if %errorlevel% neq 0 (
 )
 
 :: Build 64bit version + installer
-make distribution > %BUILDDIR%/distribution.log 2>&1
+make distribution DEBUG=T > %BUILDDIR%/distribution.log 2>&1
 if %errorlevel% neq 0 (
 	echo ERROR: 'make distribution' failure! Inspect distribution.log for details.
 	exit /b 2

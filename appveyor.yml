@@ -11,14 +11,6 @@ environment:
       archive: r-patched
       cran: true
 
-  PfxUri:
-    secure: z+vP1iY4odY07BV7v+yfuA2MBKQFFLGokZoefPhz22evsMT/KnwtB4NgcYNLJheI
-  CertPassword:
-    secure: nwSwtaLCl6Xo5sfqKLvO30aFFGCgjGJ2GKTqS33zkJg=
-  SignTool: C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe
-  CertKit: C:\Program Files (x86)\Windows Kits\10\App Certification Kit\appcert.exe
-  KeyFile: C:\jeroen.pfx
-
 install:
   - ps: |
       Import-Module '.\scripts\appveyor-tool.ps1'
@@ -34,35 +26,19 @@ build_script:
   - .\scripts\build.bat R-source.tar.gz 32
   - .\scripts\build.bat R-source.tar.gz 64
 
-after_build:
-  - ps: Start-FileDownload $env:PfxUri -FileName $env:KeyFile
-  - ps: SignFiles "${env:builddir}\${env:target}-win.exe"
-  - ps: Remove-Item –path $env:KeyFile
-  - cd %builddir%
-  - md5sum %target%-win.exe > md5sum.txt.%target%
-  - cd %startdir%
-  - 7z a %target%-win.zip %builddir%\%target%-win.exe %builddir%\md5sum.txt.%target% %builddir%\*.log %builddir%\*.html %builddir%\SVN-REVISION.* %builddir%\README.*
+deploy:
+  release: $(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%
+  provider: GitHub
+  auth_token:
+    secure: KzS1DumC2yBg2LGN9x3AemHFOjAdp+rD58rW5aGGpwW4Pfdwdm7AmRpYKprPY8Gs
+  artifact: $(APPVEYOR_PROJECT_SLUG)_Dist_%archive%_%target%_%revision%
+  draft: false
+  prerelease: false
+  on:
+    branch: master
+    # I do not care about tags
+    appveyor_repo_tag: false
 
 artifacts:
-  - path: "%target%-win.zip"
-    name: Installer Bundle
-
-on_finish:
-  - 7z a logs.zip %builddir%\*.log
-  - appveyor PushArtifact logs.zip
-
-deploy:
-  - provider: Environment
-    name: ftp_archive
-    target: "%target%"
-    archive: "%archive%"
-    revision: "%revision%"
-    on:
-      branch: master
-
-  - provider: Environment
-    name: ftp_current
-    target: "%target%"
-    on:
-      branch: master
-      cran: true
+  - path: dist
+    name: $(APPVEYOR_PROJECT_SLUG)_Dist_%archive%_%target%_%revision%
