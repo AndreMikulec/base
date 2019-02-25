@@ -26,12 +26,22 @@ install:
 
 build_script:
   - ps: Invoke-WebRequest "${env:source}" -OutFile "R-source.tar.gz"
+  - echo begin  .\scripts\build.bat R-source.tar.gz 32
+  - time
   - .\scripts\build.bat R-source.tar.gz 32
+  - time
+  - echo end    .\scripts\build.bat R-source.tar.gz 32
+  - echo begin  .\scripts\build.bat R-source.tar.gz 64
+  - time
   - .\scripts\build.bat R-source.tar.gz 64
-
-after_build:
+  - time
+  - echo end    .\scripts\build.bat R-source.tar.gz 64
   - cd %builddir%
+  - echo begin md5sum %target%-win.exe > md5sum.txt.%target%
+  - time
   - md5sum %target%-win.exe > md5sum.txt.%target%
+  - time
+  - echo end   md5sum %target%-win.exe > md5sum.txt.%target%
   - cd %startdir%
   - echo begin 7z of %target%-win.zip
   - time
