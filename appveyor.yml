@@ -1,3 +1,6 @@
+
+version: 0.1.0-{build}-{branch}
+
 environment:
   matrix:
 #    - source: https://cran.r-project.org/src/base/R-3/R-3.5.0.tar.gz
@@ -26,16 +29,26 @@ build_script:
   - .\scripts\build.bat R-source.tar.gz 32
   - .\scripts\build.bat R-source.tar.gz 64
 
+after_build:
+  - cd %builddir%
+  - md5sum %target%-win.exe > md5sum.txt.%target%
+  - cd %startdir%
+  - 7z a %target%-win.zip      %builddir%\%target%-win.exe %builddir%\md5sum.txt.%target% %builddir%\*.log %builddir%\*.html %builddir%\SVN-REVISION.* %builddir%\README.*
+  - 7z a %target%-FEobjs32.zip %builddir%\R-source-win32\src\gnuwin32\front-ends\*.o
+  - 7z a %target%-FEobjs64.zip %builddir%\R-source-win64\src\gnuwin32\front-ends\*.o
+  - 7z a logs.zip              %builddir%\*.log
+  - 7z a %archive%-%target%-win-pkgdebug.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip 
+
 artifacts:
-  - path: ..\BUILD
-    name: $(APPVEYOR_PROJECT_SLUG)_Dist_%archive%_%target%_%revision%
+  - path: "%archive%-%target%-win-pkgdebug.zip"
+    name: "%archive%-%target%-win-pkgdebug.zip"
 
 deploy:
-  release: $(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%
+  release: "$(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%"
   provider: GitHub
   auth_token:
     secure: KzS1DumC2yBg2LGN9x3AemHFOjAdp+rD58rW5aGGpwW4Pfdwdm7AmRpYKprPY8Gs
-  artifact: $(APPVEYOR_PROJECT_SLUG)_Dist_%archive%_%target%_%revision%
+  artifact: "%archive%-%target%-win-pkgdebug.zip"
   draft: false
   prerelease: false
   on:
