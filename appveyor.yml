@@ -27,46 +27,46 @@ install:
 build_script:
   - ps: Invoke-WebRequest "${env:source}" -OutFile "R-source.tar.gz"
   - echo begin  .\scripts\build.bat R-source.tar.gz 32
-  - time
+  - time /t
   - .\scripts\build.bat R-source.tar.gz 32
-  - time
+  - time /t
   - echo end    .\scripts\build.bat R-source.tar.gz 32
   - echo begin  .\scripts\build.bat R-source.tar.gz 64
-  - time
+  - time /t
   - .\scripts\build.bat R-source.tar.gz 64
-  - time
+  - time /t
   - echo end    .\scripts\build.bat R-source.tar.gz 64
   - cd %builddir%
   - echo begin md5sum %target%-win.exe > md5sum.txt.%target%
-  - time
+  - time /t
   - md5sum %target%-win.exe > md5sum.txt.%target%
-  - time
+  - time /t
   - echo end   md5sum %target%-win.exe > md5sum.txt.%target%
   - cd %startdir%
   - echo begin 7z of %target%-win.zip
-  - time
+  - time /t
   - 7z a %target%-win.zip      %builddir%\%target%-win.exe %builddir%\md5sum.txt.%target% %builddir%\*.log %builddir%\*.html %builddir%\SVN-REVISION.* %builddir%\README.*
-  - time
+  - time /t
   - echo end   7z of %target%-win.zip
   - echo begin 7z of %target%-FEobjs32.zip
-  - time
+  - time /t
   - 7z a %target%-FEobjs32.zip %builddir%\R-source-win32\src\gnuwin32\front-ends\*.o
-  - time
+  - time /t
   - echo end   7z of %target%-FEobjs32.zip
   - echo begin 7z of %target%-FEobjs64.zip
-  - time
+  - time /t
   - 7z a %target%-FEobjs64.zip %builddir%\R-source-win64\src\gnuwin32\front-ends\*.o
-  - time
+  - time /t
   - echo end   7z of %target%-FEobjs64.zip
   - echo begin 7z of logs.zip
-  - time
+  - time /t
   - 7z a logs.zip              %builddir%\*.log
-  - time
+  - time /t
   - echo end   7z of logs.zip
   - echo begin 7z of %archive%-%target%-win-pkgdebug.zip
-  - time
+  - time /t
   - 7z a %archive%-%target%-win-pkgdebug.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip 
-  - time
+  - time /t
   - echo end   7z of %archive%-%target%-win-pkgdebug.zip
 
 artifacts:
