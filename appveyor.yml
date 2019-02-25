@@ -26,6 +26,10 @@ build_script:
   - .\scripts\build.bat R-source.tar.gz 32
   - .\scripts\build.bat R-source.tar.gz 64
 
+artifacts:
+  - path: ..\BUILD
+    name: $(APPVEYOR_PROJECT_SLUG)_Dist_%archive%_%target%_%revision%
+
 deploy:
   release: $(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%
   provider: GitHub
@@ -38,7 +42,3 @@ deploy:
     branch: master
     # I do not care about tags
     appveyor_repo_tag: false
-
-artifacts:
-  - path: dist
-    name: $(APPVEYOR_PROJECT_SLUG)_Dist_%archive%_%target%_%revision%
