@@ -92,7 +92,7 @@ sed -i "s|LOCAL_SOFT =|#LOCAL_SOFT|" fixed/etc/Makeconf
 
 :: Build 32bit R version only
 IF "%WIN%"=="32" (
-make -w -d -p 32-bit DEBUG=T > %BUILDDIR%/32bit.log 2>&1
+make -w -d -p 32-bit DEBUG=T 2>&1 | tee %BUILDDIR%/32bit.log
 if %errorlevel% neq 0 (
 	echo ERROR: 'make 32-bit' failure! Inspect 32bit.log for details.
 	exit /b 2
@@ -104,14 +104,14 @@ if %errorlevel% neq 0 (
 )
 
 :: Build 64bit version + installer
-make -w -d -p distribution DEBUG=T > %BUILDDIR%/distribution.log 2>&1
+make -w -d -p distribution DEBUG=T 2>&1 | tee %BUILDDIR%/distribution.log
 if %errorlevel% neq 0 (
 	echo ERROR: 'make distribution' failure! Inspect distribution.log for details.
 	exit /b 2
 )
 echo make distribution complete!
 
-make -w -d -p check-all > %BUILDDIR%/check.log 2>&1
+make -w -d -p check-all 2>&1 | tee %BUILDDIR%/check.log
 if %errorlevel% neq 0 (
 	echo ERROR: 'make check-all' failure! Inspect check.log for details.
 	type %builddir%\check.log
