@@ -86,33 +86,35 @@ build_script:
   - 7z a logs.zip              %builddir%\*.log
   - time /t
   - echo end   7z of logs.zip
-  - echo begin 7z of %archive%-%target%-win-pkgdebug.zip
+  - echo begin 7z of %archive%-%target%-%revision%-win-pkgdebug.zip
   - time /t
-  - 7z a %archive%-%target%-win-pkgdebug.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip 
+  - 7z a %archive%-%target%-%revision%-win-pkgdebug.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip 
   - time /t
-  - echo end   7z of %archive%-%target%-win-pkgdebug.zip
+  - echo end   7z of %archive%-%target%-%revision%-win-pkgdebug.zip
+  - echo End build_script: environment variables
+  - set
 
 artifacts:
-  - path: "%archive%-%target%-win-pkgdebug.zip"
-    name: "%archive%-%target%-win-pkgdebug.zip"
+  - path: "%archive%-%target%-%revision%-win-pkgdebug.zip"
+    name: "%archive%-%target%-%revision%-win-pkgdebug.zip"
 
 # too much time?
 # too big for github?
 # too much network bandwidth usage?
 # something else?
 # 
-# deploy:
-#   release: "$(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%"
-#   provider: GitHub
-#   auth_token:
-#     secure: KzS1DumC2yBg2LGN9x3AemHFOjAdp+rD58rW5aGGpwW4Pfdwdm7AmRpYKprPY8Gs
-#   artifact: "%archive%-%target%-win-pkgdebug.zip"
-#   draft: false
-#   prerelease: false
-#   on:
-#     branch: master
-#     # I do not care about tags
-#     appveyor_repo_tag: false
+deploy:
+  release: "$(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%"
+  provider: GitHub
+  auth_token:
+    secure: KzS1DumC2yBg2LGN9x3AemHFOjAdp+rD58rW5aGGpwW4Pfdwdm7AmRpYKprPY8Gs
+  artifact: "%archive%-%target%-%revision%-win-pkgdebug.zip"
+  draft: false
+  prerelease: false
+  on:
+    branch: master
+    # I do not care about tags
+    appveyor_repo_tag: false
 
 # on_finish:
 #   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

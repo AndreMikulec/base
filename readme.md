@@ -1,6 +1,6 @@
 
 
-# R for windows `debug` version of package C,C++, and Fortran code on Windows 32/64
+# R for windows `debug` version of package C,C++, and Fortran code on Windows 32/64 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/AndreMikulec/base)](https://ci.appveyor.com/project/AndreMikulec/base)
 
 NOTE:
 I may not be aware of a new release/point_release of R ( e.g. a point release: 3.5.x, 4.0.? . . .).
@@ -13,7 +13,7 @@ R for windows, then go here: https://github.com/rwinlib/base
 Differences from https://github.com/rwinlib/base follow:
 
 In https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in
-added (because 64bit Windows does not support dwarf-*)
+added (because 64-bit Windows does not support dwarf-*)
 ```
 G_FLAG = -ggdb3 -Og
 ```
@@ -21,21 +21,21 @@ G_FLAG = -ggdb3 -Og
 In https://github.com/AndreMikulec/base/blob/master/scripts/build.bat
 changed from
 ```
-make 32-bit > %BUILDDIR%/32bit.log 2>&1
+make 32-bit
 ```
 to
 ```
-make 32-bit DEBUG=T > %BUILDDIR%/32bit.log 2>&1
+make 32-bit DEBUG=T
 ```
 
 In https://github.com/AndreMikulec/base/blob/master/scripts/build.bat
 changed from
 ```
-make distribution > %BUILDDIR%/distribution.log 2>&1
+make distribution
 ```
 to
 ```
-make distribution DEBUG=T > %BUILDDIR%/distribution.log 2>&1
+make distribution DEBUG=T
 ```
 
 In https://github.com/AndreMikulec/base/blob/master/scripts/build.bat
