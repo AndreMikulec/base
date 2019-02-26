@@ -1,3 +1,4 @@
+echo on
 if not exist "R-devel.tar.gz" (
 powershell -Command "Invoke-WebRequest https://stat.ethz.ch/R/daily/R-devel.tar.gz -OutFile R-devel.tar.gz"
 )

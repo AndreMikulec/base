@@ -1,3 +1,4 @@
+echo on
 ::set target=R-devel.tar.gz
 set TARBALL=%1
 if not exist "%TARBALL%" (

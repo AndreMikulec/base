@@ -1,3 +1,4 @@
+echo on
 if not exist "R-latest.tar.gz" (
 powershell -Command "Invoke-WebRequest https://cran.r-project.org/src/base/R-latest.tar.gz -OutFile R-latest.tar.gz"
 )
