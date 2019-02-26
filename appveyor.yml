@@ -1,4 +1,8 @@
 
+# collect IP and username for rdp
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
 version: 0.1.0-{build}-{branch}
 
 environment:
@@ -16,24 +20,43 @@ environment:
 
 install:
   - ps: |
+      Write-Output "Begin install: environment variables"
+      Get-ChildItem Env:
+      Set-PSDebug -Trace 2
       Import-Module '.\scripts\appveyor-tool.ps1'
       SetTimezone
       InstallMiktex
       InstallPerl
       InstallInno
       InstallRtools
+      Write-Output "End   install: environment variables"
+      Get-ChildItem Env:
+
   - git submodule update --init
 
 build_script:
   - ps: Invoke-WebRequest "${env:source}" -OutFile "R-source.tar.gz"
+  - echo on
   - echo begin  .\scripts\build.bat R-source.tar.gz 32
   - time /t
+  - echo Begin build_script: BEFORE build.bat R-source.tar.gz 32 environment variables
+  - set
+  - echo End   build_script: BEFORE build.bat R-source.tar.gz 32 environment variables
   - .\scripts\build.bat R-source.tar.gz 32
+  - echo Begin build_script: AFTER  build.bat R-source.tar.gz 32 environment variables
+  - set
+  - echo End   build_script: AFTER  build.bat R-source.tar.gz 32 environment variables
   - time /t
   - echo end    .\scripts\build.bat R-source.tar.gz 32
   - echo begin  .\scripts\build.bat R-source.tar.gz 64
   - time /t
+  - echo Begin build_script: BEFORE build.bat R-source.tar.gz 64 environment variables
+  - set
+  - echo End   build_script: BEFORE build.bat R-source.tar.gz 64 environment variables
   - .\scripts\build.bat R-source.tar.gz 64
+  - echo Begin build_script: AFTER  build.bat R-source.tar.gz 64 environment variables
+  - set
+  - echo End   build_script: AFTER  build.bat R-source.tar.gz 64 environment variables
   - time /t
   - echo end    .\scripts\build.bat R-source.tar.gz 64
   - cd %builddir%
@@ -91,3 +114,6 @@ artifacts:
 #     # I do not care about tags
 #     appveyor_repo_tag: false
 
+# on_finish:
+#   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+# # remove locking file from the desktop
