@@ -89,8 +89,10 @@ sed -i "s|LOCAL_SOFT =|#LOCAL_SOFT|" fixed/etc/Makeconf
 
 :: Download 'extsoft' directory
 :: make rsync-extsoft
+echo %R_HOME%\src\gnuwin32 directory BEFORE Build 32bit R version only
+dir %R_HOME%\src\gnuwin32
 echo BUILD directory BEFORE Build 32bit R version only
-dir
+dir %BUILDDIR%
 :: Build 32bit R version only
 IF "%WIN%"=="32" (
 make 32-bit DEBUG=T 2>&1 | tee %BUILDDIR%/32bit.log
@@ -103,9 +105,12 @@ if %errorlevel% neq 0 (
 	exit /b 0
 )
 )
+echo %R_HOME%\src\gnuwin32 directory AFTER  Build 32bit R version only
+echo %R_HOME%\src\gnuwin32 directory BEFORE Build 64bit version + installer
+dir %R_HOME%\src\gnuwin32
 echo BUILD directory AFTER  Build 32bit R version only
 echo BUILD directory BEFORE Build 64bit version + installer
-dir
+dir %BUILDDIR%
 
 :: Build 64bit version + installer
 make distribution DEBUG=T 2>&1 | tee %BUILDDIR%/distribution.log
@@ -114,8 +119,10 @@ if %errorlevel% neq 0 (
 	exit /b 2
 )
 echo make distribution complete!
+echo %R_HOME%\src\gnuwin32 directory AFTER Build 64bit version + installer
+dir %R_HOME%\src\gnuwin32
 echo BUILD directory AFTER Build 64bit version + installer
-dir
+dir %BUILDDIR%
 
 make check-all 2>&1 | tee %BUILDDIR%/check.log
 if %errorlevel% neq 0 (
@@ -123,8 +130,10 @@ if %errorlevel% neq 0 (
   type %builddir%\check.log
   exit /b 2
 )
+echo %R_HOME%\src\gnuwin32 directory AFTER "make check-all"
+dir %R_HOME%\src\gnuwin32
 echo BUILD directory AFTER "make check-all"
-dir
+dir %BUILDDIR%
 
 :: Get the actual version name
 call %R_HOME%\src\gnuwin32\cran\target.cmd
@@ -178,8 +187,10 @@ cp %R_HOME%/src/gnuwin32/cran/rw-FAQ.html .
 cp %R_HOME%/src/gnuwin32/cran/release.html .
 set REVISION=%target%
 )
-echo BUILD/src/gnuwin32/cran directory AFTER Webpages to ship on CRAN
+echo BUILD\src\gnuwin32\cran directory AFTER Webpages to ship on CRAN
 dir %R_HOME%\src\gnuwin32\cran
+echo BUILD\src\gnuwin32 directory AFTER Webpages to ship on CRAN
+dir %R_HOME%\src\gnuwin32
 
 :: Done
 cd %STARTDIR%
