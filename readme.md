@@ -10,15 +10,19 @@ If so, tell me about it. Email me: Andre_Mikulec@Homail.com.
 If you want the official version of
 R for windows, then go here: https://github.com/rwinlib/base
 
-Differences from https://github.com/rwinlib/base follow:
+Differences from 
+https://github.com/rwinlib/base 
+follow:
 
-In https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in
+In 
+https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in
 added (because 64-bit Windows does not support dwarf-*)
 ```
 G_FLAG = -ggdb3 -Og
 ```
 
-In https://github.com/AndreMikulec/base/blob/master/scripts/build.bat
+In 
+https://github.com/AndreMikulec/base/blob/master/scripts/build.bat
 changed from
 ```
 make 32-bit
@@ -28,7 +32,8 @@ to
 make 32-bit DEBUG=T
 ```
 
-In https://github.com/AndreMikulec/base/blob/master/scripts/build.bat
+In 
+https://github.com/AndreMikulec/base/blob/master/scripts/build.bat
 changed from
 ```
 make distribution
@@ -38,7 +43,8 @@ to
 make distribution DEBUG=T
 ```
 
-In https://github.com/AndreMikulec/base/blob/master/scripts/build.bat
+In 
+https://github.com/AndreMikulec/base/blob/master/scripts/build.bat
 after R-ANY.tar.gz extraction of the file src\gnuwin32\fixed\etc\Makeconf
 using
 ```
@@ -52,8 +58,17 @@ to
 ```
   DEBUGFLAG=-ggdb3 -Og
 ```
-In https://github.com/rwinlib/base/blob/master/appveyor.yml
+In 
+https://github.com/rwinlib/base/blob/master/appveyor.yml
 removed sections (Can not access: "C:\jeroen.pfx" ) and performed modifications.
+
+Note: the *tests* are not performed.  This would cause the build to use
+up more than one hour of time. 
+For the test results see:
+https://ftp.opencpu.org/current/check.log
+https://ftp.opencpu.org/archive/r-patched/<svn number>/check.log
+https://ftp.opencpu.org/archive/r-release/R-x.y.z/check.log
+
 
 # R for Windows [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rwinlib/base)](https://ci.appveyor.com/project/jeroen/base)
 
