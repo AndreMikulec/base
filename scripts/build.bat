@@ -69,9 +69,7 @@ xcopy /s "%SOURCEDIR%\cairo\include\cairo" "%R_HOME%\cairo\win64"
 :: apply local patches
 cd %R_HOME%
 patch -p1 -i %SOURCEDIR%\patches\cairo.diff
-
-:: Fixed in r-devel (3.6):
-patch -N -p1 -i %SOURCEDIR%\patches\cranextra.diff
+patch -p1 -i %SOURCEDIR%\patches\cranextra.diff
 :: patch -p1 -i %SOURCEDIR%\patches\objdump.diff
 patch -p1 -i %SOURCEDIR%\patches\shortcut.diff
 :: patch -p1 -i %SOURCEDIR%\patches\cairopath.diff
