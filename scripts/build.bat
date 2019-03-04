@@ -5,6 +5,11 @@ if not exist "%TARBALL%" (
 echo File not found: %TARBALL% && exit /b 1
 )
 
+REM
+REM  Andre Mikulec
+REM
+set
+
 ::set WIN=32
 ::set WIN=64
 set WIN=%2
@@ -52,6 +57,7 @@ REM
 REM  Andre Mikulec
 REM
 sed -i "s/^EOPTS.*/EOPTS = %MARCHMTUNE%/g" %R_HOME%/src/gnuwin32/MkRules.local
+type %R_HOME%/src/gnuwin32/MkRules.local
 
 :: Copy libraries
 cp -R %SOURCEDIR%\libcurl %R_HOME%\libcurl
@@ -73,11 +79,10 @@ xcopy /s "%SOURCEDIR%\cairo\include\cairo" "%R_HOME%\cairo\win64"
 ::sed -i "s|Unsuffered Consequences|Blame Jeroen|" %R_HOME%/VERSION-NICK
 
 REM
-
-REM
 REM  Andre Mikulec
 REM
-sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD%/g" %R_HOME%/VERSION
+sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD%/g" %R_HOME%/VERSION-NICK
+type %R_HOME%/VERSION-NICK
 
 ::echo PATH="C:\Rtools\bin;${PATH}" > %R_HOME%/etc/Renviron.site
 
