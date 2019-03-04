@@ -57,7 +57,7 @@ REM
 REM  Andre Mikulec
 REM
 sed -i "s/^EOPTS.*/EOPTS = %MARCHMTUNE%/g" %R_HOME%/src/gnuwin32/MkRules.local
-type %R_HOME%/src/gnuwin32/MkRules.local
+type %R_HOME%\src\gnuwin32\MkRules.local
 
 :: Copy libraries
 cp -R %SOURCEDIR%\libcurl %R_HOME%\libcurl
@@ -81,8 +81,8 @@ xcopy /s "%SOURCEDIR%\cairo\include\cairo" "%R_HOME%\cairo\win64"
 REM
 REM  Andre Mikulec
 REM
-sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD%/g" %R_HOME%/VERSION
-type %R_HOME%/VERSION
+REM sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD%/g" %R_HOME%/VERSION-NICK
+REM type %R_HOME%\VERSION-NICK
 
 ::echo PATH="C:\Rtools\bin;${PATH}" > %R_HOME%/etc/Renviron.site
 
@@ -175,9 +175,9 @@ REM   type %builddir%\check.log
 REM   exit /b 2
 REM )
 REM echo %R_HOME%\src\gnuwin32 directory AFTER "make check-all"
-REM dir %R_HOME%\src\gnuwin32
-REM echo BUILD directory AFTER "make check-all"
-REM dir %BUILDDIR%
+dir %R_HOME%\src\gnuwin32
+echo BUILD directory AFTER "make check-all"
+dir %BUILDDIR%
 
 :: Get the actual version name
 call %R_HOME%\src\gnuwin32\cran\target.cmd
