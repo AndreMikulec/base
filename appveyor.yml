@@ -1,7 +1,7 @@
 
-# collect IP and username for rdp
-init:
-  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+# # collect IP and username for rdp
+# init:
+#  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 version: 0.1.0-{build}-{branch}
 
@@ -10,13 +10,38 @@ environment:
     - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       archive: r-patched
       cran: true
-#    - source: https://cran.r-project.org/src/base/R-3/R-3.5.0.tar.gz
-#      RTOOLS_VERSION: 35
-#      archive: r-release    
-    - source: https://stat.ethz.ch/R/daily/R-devel.tar.gz
-      archive: r-devel
+      REM
+      REM Andre Mikulec
+      REM
+      MAKE_32BIT: 32-bit DEBUG=T
+      MAKE_DISTRIBUTION: distibution DEBUG=T
+      MARCHMTUNE: -mtune=generic
+      MARCHMTUNENAME: CPU Build Generic
+      DIST_BUILD: with Debugging Symbols
+      DEPLOYNAME: Generic_Debug
+    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+      archive: r-patched
       cran: true
-#    - source: https://stat.ethz.ch/R/daily/R-patched.tar.gz
+      REM
+      REM Andre Mikulec
+      REM
+      MAKE_32BIT: 32-bit
+      MAKE_DISTRIBUTION: distibution
+      MARCHMTUNE: -march=broadwell
+      MARCHMTUNENAME: CPU Build Broadwell
+      DIST_BUILD: without Debugging Symbols
+      DEPLOYNAME: Broadwell_NoDebug
+
+# #
+# #    - source: https://cran.r-project.org/src/base/R-3/R-3.5.0.tar.gz
+# #      RTOOLS_VERSION: 35
+# #      archive: r-release
+#     - source: https://stat.ethz.ch/R/daily/R-devel.tar.gz
+#       archive: r-devel
+#       cran: true
+#       MAKE_DISTRIBUTION: distibution DEBUG=T
+#
+# #    - source: https://stat.ethz.ch/R/daily/R-patched.tar.gz
 
 
 install:
@@ -69,7 +94,7 @@ build_script:
   - cd %startdir%
   - echo begin 7z of %target%-win.zip
   - time /t
-  - 7z a %target%-win.zip      %builddir%\%target%-win.exe %builddir%\md5sum.txt.%target% %builddir%\*.log %builddir%\*.html %builddir%\SVN-REVISION.* %builddir%\README.*
+  - 7z a %target%-win.zip %builddir%\%target%-win.exe %builddir%\md5sum.txt.%target% %builddir%\*.log %builddir%\*.html %builddir%\SVN-REVISION.* %builddir%\README.*
   - time /t
   - echo end   7z of %target%-win.zip
   - echo begin 7z of %target%-FEobjs32.zip
@@ -87,35 +112,29 @@ build_script:
   - 7z a logs.zip              %builddir%\*.log
   - time /t
   - echo end   7z of logs.zip
-  - echo begin 7z of %archive%-%target%-%revision%-win-pkgdebug.zip
+  - echo begin 7z of "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
   - time /t
-  - 7z a %archive%-%target%-%revision%-win-pkgdebug.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip 
+  - 7z a %archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip 
   - time /t
-  - echo end   7z of %archive%-%target%-%revision%-win-pkgdebug.zip
+  - echo end   7z of "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
   - echo End build_script: environment variables
   - set
 
 artifacts:
-  - path: "%archive%-%target%-%revision%-win-pkgdebug.zip"
-    name: "%archive%-%target%-%revision%-win-pkgdebug.zip"
+  - path: "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
+    name: "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
 
-# too much time?
-# too big for github?
-# too much network bandwidth usage?
-# something else?
-# 
 deploy:
-  release: "$(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%"
+  release: "$(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%_%DEPLOYNAME%"
   provider: GitHub
   auth_token:
     secure: KzS1DumC2yBg2LGN9x3AemHFOjAdp+rD58rW5aGGpwW4Pfdwdm7AmRpYKprPY8Gs
-  artifact: "%archive%-%target%-%revision%-win-pkgdebug.zip"
+  artifact: "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
   draft: false
   prerelease: false
   on:
     branch: master
-    # I do not care about tags
-    appveyor_repo_tag: false
+    appveyor_repo_tag: true
 
 # on_finish:
 #   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))

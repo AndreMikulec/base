@@ -39,11 +39,19 @@ mkdir %R_NAME%
 set MSYS=winsymlinks:lnk
 tar -xf %SOURCEDIR%/%TARBALL% -C %R_NAME% --strip-components=1
 
+REM
+REM  Andre Mikulec
+REM
 sed -i "s/-gdwarf-2/-ggdb -Og/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
 
 set XR_HOME=%R_HOME:\=/%
 set XHOME32=%HOME32:\=/%
 sed -e "s|@win@|%WIN%|" -e "s|@home@|%XR_HOME%|" -e "s|@home32@|%XHOME32%|" %SOURCEDIR%\files\MkRules.local.in > %R_HOME%/src/gnuwin32/MkRules.local
+
+REM
+REM  Andre Mikulec
+REM
+sed -i "s/^EOPTS.*/EOPTS = %MARCHMTUNE%/g" %R_HOME%/src/gnuwin32/MkRules.local
 
 :: Copy libraries
 cp -R %SOURCEDIR%\libcurl %R_HOME%\libcurl
@@ -64,12 +72,19 @@ xcopy /s "%SOURCEDIR%\cairo\include\cairo" "%R_HOME%\cairo\win64"
 ::echo cat('R-experimental') > %R_HOME%/src/gnuwin32/fixed/rwver.R
 ::sed -i "s|Unsuffered Consequences|Blame Jeroen|" %R_HOME%/VERSION-NICK
 
+REM
+REM  Andre Mikulec
+REM
+sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD%/g" %R_HOME%/VERSION
+
 ::echo PATH="C:\Rtools\bin;${PATH}" > %R_HOME%/etc/Renviron.site
 
 :: apply local patches
 cd %R_HOME%
 patch -p1 -i %SOURCEDIR%\patches\cairo.diff
-patch -p1 -i %SOURCEDIR%\patches\cranextra.diff
+
+:: Fixed in r-devel (3.6):
+patch -N -p1 -i %SOURCEDIR%\patches\cranextra.diff
 :: patch -p1 -i %SOURCEDIR%\patches\objdump.diff
 patch -p1 -i %SOURCEDIR%\patches\shortcut.diff
 :: patch -p1 -i %SOURCEDIR%\patches\cairopath.diff
@@ -96,7 +111,10 @@ echo BUILD directory BEFORE Build 32bit R version only
 dir %BUILDDIR%
 :: Build 32bit R version only
 IF "%WIN%"=="32" (
-make 32-bit DEBUG=T 2>&1 | tee %BUILDDIR%/32bit.log
+REM
+REM  Andre Mikulec
+REM
+make %MAKE_32BIT% 2>&1 | tee %BUILDDIR%/32bit.log
 if %errorlevel% neq 0 (
 	echo ERROR: 'make 32-bit' failure! Inspect 32bit.log for details.
 	exit /b 2
@@ -114,7 +132,10 @@ echo BUILD directory BEFORE Build 64bit version + installer
 dir %BUILDDIR%
 
 :: Build 64bit version + installer
-make distribution DEBUG=T 2>&1 | tee %BUILDDIR%/distribution.log
+REM
+REM  Andre Mikulec
+REM
+make %MAKE_DISTRIBUTION% 2>&1 | tee %BUILDDIR%/distribution.log
 if %errorlevel% neq 0 (
 	echo ERROR: 'make distribution' failure! Inspect distribution.log for details.
 	exit /b 2
@@ -125,7 +146,10 @@ dir %R_HOME%\src\gnuwin32
 echo BUILD directory AFTER Build 64bit version + installer
 dir %BUILDDIR%
 
-REM MY total time takes OVER one hour ( so "times out" )
+REM
+REM  Andre Mikulec
+REM
+REM MY(Andre Miklec) total build time takes OVER one hour, so "times out"
 REM base-prerelease/R-latest.tar.gz
 REM
 REM 64 minutes ( so J Ooms has more time allowed by Appveyor )
