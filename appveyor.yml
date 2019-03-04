@@ -5,14 +5,14 @@
 
 version: 0.1.0-{build}-{branch}
 
+#
+# Andre Mikulec
+#
 environment:
   matrix:
     - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       archive: r-patched
       cran: true
-      REM
-      REM Andre Mikulec
-      REM
       MAKE_32BIT: 32-bit DEBUG=T
       MAKE_DISTRIBUTION: distibution DEBUG=T
       MARCHMTUNE: -mtune=generic
@@ -22,9 +22,6 @@ environment:
     - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       archive: r-patched
       cran: true
-      REM
-      REM Andre Mikulec
-      REM
       MAKE_32BIT: 32-bit
       MAKE_DISTRIBUTION: distibution
       MARCHMTUNE: -march=broadwell
