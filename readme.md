@@ -70,6 +70,23 @@ https://ftp.opencpu.org/archive/r-patched/<svn number>/check.log
 https://ftp.opencpu.org/archive/r-release/R-x.y.z/check.log
 
 
+After the builds `bin\x64` and `bin\i386` object files
+(with or without debugging symbols) are contained in . . .
+
+*-FEobjs64.zip
+*-FEobjs32.zip
+
+These may be useful?
+After one may install (the debug version of) R, one may place these .o files
+in their corresponding directories.
+
+`bin\x64 and bin\i386
+`
+Get Deployments of the R installer and 
+*-FEobjs64.zip and *-FEobjs32.zip from
+
+https://github.com/AndreMikulec/base/releases
+
 # R for Windows [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/rwinlib/base)](https://ci.appveyor.com/project/jeroen/base)
 
 > Official repository for building R on Windows

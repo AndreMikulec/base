@@ -94,12 +94,12 @@ build_script:
   - echo begin 7z of %target%-FEobjs64.zip
   - 7z a %target%-FEobjs64.zip %builddir%\R-source-win64\src\gnuwin32\front-ends\*.o
   - echo end   7z of %target%-FEobjs64.zip
-  - echo begin 7z of logs.zip
-  - 7z a logs.zip              %builddir%\*.log
-  - echo end   7z of logs.zip
-  - echo begin 7z of "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
-  - 7z a %archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip 
-  - echo end   7z of "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
+  - echo begin 7z of  logs.zip
+  - 7z a              logs.zip %builddir%\*.log
+  - echo end   7z of  logs.zip
+  - echo begin 7z of "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
+  - 7z a              %archive%-%target%-%revision%-%DEPLOYNAME%.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip
+  - echo end   7z of "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
   - echo End build_script: environment variables
   - set
 
