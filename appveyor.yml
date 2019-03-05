@@ -73,7 +73,9 @@ build_script:
   - echo Begin build_script: BEFORE build.bat R-source.tar.gz 32 environment variables
   - set
   - echo End   build_script: BEFORE build.bat R-source.tar.gz 32 environment variables
+  - time /t
   - .\scripts\build.bat R-source.tar.gz 32
+  - time /t
   - echo Begin build_script: AFTER  build.bat R-source.tar.gz 32 environment variables
   - set
   - echo End   build_script: AFTER  build.bat R-source.tar.gz 32 environment variables
@@ -82,14 +84,15 @@ build_script:
   - echo Begin build_script: BEFORE build.bat R-source.tar.gz 64 environment variables
   - set
   - echo End   build_script: BEFORE build.bat R-source.tar.gz 64 environment variables
+  - time /t
   - .\scripts\build.bat R-source.tar.gz 64
+  - time /t
   - echo Begin build_script: AFTER  build.bat R-source.tar.gz 64 environment variables
   - set
   - echo End   build_script: AFTER  build.bat R-source.tar.gz 64 environment variables
   - echo end    .\scripts\build.bat R-source.tar.gz 64
   - cd %builddir%
   - echo begin md5sum %target%-win.exe > md5sum.txt.%target%
-  - time /t
   - md5sum %target%-win.exe > md5sum.txt.%target%
   - echo end   md5sum %target%-win.exe > md5sum.txt.%target%
   - cd %startdir%
@@ -110,6 +113,7 @@ build_script:
   - 7z a              %archive%-%target%-%revision%-%DEPLOYNAME%.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip
   - echo end   7z of "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
   - echo End build_script: environment variables
+  - time /t
   - set
 
 artifacts:
