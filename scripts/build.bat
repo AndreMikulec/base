@@ -72,7 +72,6 @@ cp -R %SOURCEDIR%\cairo\lib\i386 %R_HOME%\cairo\win32
 xcopy /s "%SOURCEDIR%\cairo\include\cairo" "%R_HOME%\cairo\win32"
 xcopy /s "%SOURCEDIR%\cairo\include\cairo" "%R_HOME%\cairo\win64"
 
-
 :: Mark output as experimental
 ::sed -i "s/Under development (unstable)/EXPERIMENTAL/" %R_HOME%/VERSION
 ::echo cat('R-experimental') > %R_HOME%/src/gnuwin32/fixed/rwver.R
@@ -82,7 +81,7 @@ REM
 REM  Andre Mikulec
 REM
 REM sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD%/g" %R_HOME%/VERSION-NICK
-REM type %R_HOME%\VERSION-NICK
+type %R_HOME%\VERSION-NICK
 
 ::echo PATH="C:\Rtools\bin;${PATH}" > %R_HOME%/etc/Renviron.site
 

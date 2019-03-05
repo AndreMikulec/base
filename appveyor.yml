@@ -61,7 +61,6 @@ build_script:
   - ps: Invoke-WebRequest "${env:source}" -OutFile "R-source.tar.gz"
   - echo on
   - echo begin  .\scripts\build.bat R-source.tar.gz 32
-  - time /t
   - echo Begin build_script: BEFORE build.bat R-source.tar.gz 32 environment variables
   - set
   - echo End   build_script: BEFORE build.bat R-source.tar.gz 32 environment variables
@@ -69,10 +68,8 @@ build_script:
   - echo Begin build_script: AFTER  build.bat R-source.tar.gz 32 environment variables
   - set
   - echo End   build_script: AFTER  build.bat R-source.tar.gz 32 environment variables
-  - time /t
   - echo end    .\scripts\build.bat R-source.tar.gz 32
   - echo begin  .\scripts\build.bat R-source.tar.gz 64
-  - time /t
   - echo Begin build_script: BEFORE build.bat R-source.tar.gz 64 environment variables
   - set
   - echo End   build_script: BEFORE build.bat R-source.tar.gz 64 environment variables
@@ -80,58 +77,56 @@ build_script:
   - echo Begin build_script: AFTER  build.bat R-source.tar.gz 64 environment variables
   - set
   - echo End   build_script: AFTER  build.bat R-source.tar.gz 64 environment variables
-  - time /t
   - echo end    .\scripts\build.bat R-source.tar.gz 64
   - cd %builddir%
   - echo begin md5sum %target%-win.exe > md5sum.txt.%target%
   - time /t
   - md5sum %target%-win.exe > md5sum.txt.%target%
-  - time /t
   - echo end   md5sum %target%-win.exe > md5sum.txt.%target%
   - cd %startdir%
   - echo begin 7z of %target%-win.zip
-  - time /t
   - 7z a %target%-win.zip %builddir%\%target%-win.exe %builddir%\md5sum.txt.%target% %builddir%\*.log %builddir%\*.html %builddir%\SVN-REVISION.* %builddir%\README.*
-  - time /t
   - echo end   7z of %target%-win.zip
   - echo begin 7z of %target%-FEobjs32.zip
   - time /t
   - 7z a %target%-FEobjs32.zip %builddir%\R-source-win32\src\gnuwin32\front-ends\*.o
-  - time /t
   - echo end   7z of %target%-FEobjs32.zip
   - echo begin 7z of %target%-FEobjs64.zip
-  - time /t
   - 7z a %target%-FEobjs64.zip %builddir%\R-source-win64\src\gnuwin32\front-ends\*.o
-  - time /t
   - echo end   7z of %target%-FEobjs64.zip
   - echo begin 7z of logs.zip
-  - time /t
   - 7z a logs.zip              %builddir%\*.log
-  - time /t
   - echo end   7z of logs.zip
   - echo begin 7z of "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
-  - time /t
   - 7z a %archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip 
-  - time /t
   - echo end   7z of "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
   - echo End build_script: environment variables
   - set
 
 artifacts:
-  - path: "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
-    name: "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
+  - path: "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
+    name: "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
+
+on_finish:
+  - 7z a logs.zip %builddir%\*.log
+  - appveyor PushArtifact logs.zip
+
+# Do not build on tags (GitHub and BitBucket)
+skip_tags: true
+
+# Start builds on tags only (GitHub and BitBucket)
+# skip_non_tags: true
 
 deploy:
   release: "$(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%_%DEPLOYNAME%"
   provider: GitHub
   auth_token:
     secure: KzS1DumC2yBg2LGN9x3AemHFOjAdp+rD58rW5aGGpwW4Pfdwdm7AmRpYKprPY8Gs
-  artifact: "%archive%-%target%-%revision%-%DEPLOYNAME%-win-pkgdebug.zip"
+  artifact: "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
   draft: false
   prerelease: false
   on:
     branch: master
-    appveyor_repo_tag: false
 
 # on_finish:
 #   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
