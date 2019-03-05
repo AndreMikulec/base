@@ -8,9 +8,18 @@ version: 0.1.0-{build}-{branch}
 #
 # Andre Mikulec
 #
+# for now, just the official distribution of R x.y.z
+# .x changes approximately once/decade
+# .y changes approximately once/year
+# .z changes approximately once/3-months (new builds here)
+# https://cran.r-project.org/src/base/R-latest.tar.gz
+#
+# NOTE: "DEPLOYNAME: Broadwell" is the upper limit of the Rtools 3.5 gcc 4.9.3.
+#
+
 environment:
   matrix:
-    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+    - source: https://cran.r-project.org/src/base/R-latest.tar.gz
       archive: r-patched
       cran: true
       MAKE_32BIT: 32-bit
@@ -19,7 +28,7 @@ environment:
       MARCHMTUNENAME: CPU Build Broadwell
       DIST_BUILD: without Debugging Symbols
       DEPLOYNAME: Broadwell_NoDebug
-    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+    - source: https://cran.r-project.org/src/base/R-latest.tar.gz
       archive: r-patched
       cran: true
       MAKE_32BIT: 32-bit DEBUG=T
