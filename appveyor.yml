@@ -17,6 +17,10 @@ version: 0.1.0-{build}-{branch}
 # NOTE: "DEPLOYNAME: Broadwell" is the upper limit of the Rtools 3.5 gcc 4.9.3.
 #
 
+#
+# Andre Mikulec
+#
+
 environment:
   matrix:
     - source: https://cran.r-project.org/src/base/R-latest.tar.gz
@@ -52,7 +56,7 @@ environment:
 
 install:
   - ps: |
-      Write-Output "Begin install: environment variables"
+      Write-Output "Begin install: environment required software"
       Get-ChildItem Env:
       Set-PSDebug -Trace 2
       Import-Module '.\scripts\appveyor-tool.ps1'
@@ -61,7 +65,7 @@ install:
       InstallPerl
       InstallInno
       InstallRtools
-      Write-Output "End   install: environment variables"
+      Write-Output "End   install: environment required software"
       Get-ChildItem Env:
 
   - git submodule update --init
@@ -109,16 +113,16 @@ build_script:
   - echo begin 7z of  logs.zip
   - 7z a              logs.zip %builddir%\*.log
   - echo end   7z of  logs.zip
-  - echo begin 7z of "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
-  - 7z a              %archive%-%target%-%revision%-%DEPLOYNAME%.zip logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip
-  - echo end   7z of "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
+  - echo begin 7z of "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
+  - 7z a             "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip" logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip
+  - echo end   7z of "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
   - echo End build_script: environment variables
   - time /t
   - set
 
 artifacts:
-  - path: "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
-    name: "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
+  - path: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
+    name: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
 
 on_finish:
   - 7z a logs.zip %builddir%\*.log
@@ -131,11 +135,11 @@ skip_tags: true
 # skip_non_tags: true
 
 deploy:
-  release: "$(APPVEYOR_PROJECT_SLUG)_$(appveyor_build_version)_%archive%_%target%_%revision%_%DEPLOYNAME%"
+  release: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
   provider: GitHub
   auth_token:
     secure: KzS1DumC2yBg2LGN9x3AemHFOjAdp+rD58rW5aGGpwW4Pfdwdm7AmRpYKprPY8Gs
-  artifact: "%archive%-%target%-%revision%-%DEPLOYNAME%.zip"
+  artifact: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
   draft: false
   prerelease: false
   on:
