@@ -71,7 +71,26 @@ install:
   - git submodule update --init
 
 build_script:
-  - ps: Invoke-WebRequest "${env:source}" -OutFile "R-source.tar.gz"
+  - ps: |
+      $WebRequest_source_attempt = 2
+      $WebRequest_source_success = $false
+      while ($WebRequest_source_attempt -gt 0 -and -not $WebRequest_source_success) {
+        try {
+          Invoke-WebRequest "${env:source}" -OutFile "R-source.tar.gz"
+          $WebRequest_source_success = $true
+        } catch {
+          $ErrorMessage = $_.Exception.Message
+          Write-Output $ErrorMessage
+          $FailedItem  = $Error
+          Write-Output $FailedItem
+          $WebRequest_source_attempt--
+        }
+      }
+      if (-not $WebRequest_source_success) {
+        $Text = "last Invoke-WebRequest Failed"
+        Write-Output $Text
+        throw "manual: last Invoke-WebRequest Failed: stop"
+      }
   - echo on
   - echo begin  .\scripts\build.bat R-source.tar.gz 32
   - echo Begin build_script: BEFORE build.bat R-source.tar.gz 32 environment variables
