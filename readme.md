@@ -16,7 +16,7 @@ userprimary
 ```
 https://vimeo.com/11937905
 
-The CPU Optimized version is built using the flag `-march broadwell` available in Rtools 35 (and later).
+The CPU Optimized version is built using custom optimization flag(s) available in Rtools 35 (and later).
 Debugging symbols are `not` included.
 
 ## Available Point Releases
