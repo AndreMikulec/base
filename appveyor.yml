@@ -147,6 +147,15 @@ on_finish:
   - 7z a logs.zip %builddir%\*.log
   - appveyor PushArtifact logs.zip
 
+on_failure:
+  - echo Total build time (with tests) takes OVER one hour
+  - echo so build+tests is not done (only "build" is done.)
+  - echo Test result are obtained from . . .
+  - echo
+  - echo https://ftp.opencpu.org/current/check.log
+  - echo https://ftp.opencpu.org/archive/r-patched/svn_number/check.log
+  - echo https://ftp.opencpu.org/archive/r-release/R-x.y.z/check.log
+
 # Do not build on tags (GitHub and BitBucket)
 skip_tags: true
 
