@@ -243,7 +243,7 @@ Function InstallInno {
   & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../innosetup.exe -L $inno_url
 
   Progress "Installig InnoSetup"
-  Start-Process -FilePath ..\innosetup.exe -ArgumentList /ALLUSERS /SILENT -NoNewWindow -Wait
+  Start-Process -FilePath ..\innosetup.exe  -NoNewWindow -Wait -ArgumentList /ALLUSERS,/SILENT
 
   Progress "InnoSetup installation: Done"
   Get-ItemProperty "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
