@@ -243,10 +243,10 @@ Function InstallInno {
   & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../innosetup.exe -L $inno_url
 
   Progress "Installig InnoSetup"
-  Start-Process -FilePath ..\innosetup.exe -ArgumentList /SILENT -NoNewWindow -Wait
+  Start-Process -FilePath ..\innosetup.exe -ArgumentList /ALLUSERS /SILENT -NoNewWindow -Wait
 
   Progress "InnoSetup installation: Done"
-  Get-ItemProperty "C:\Program Files (x86)\Inno Setup 5\ISCC.exe"
+  Get-ItemProperty "C:\Program Files (x86)\Inno Setup 6\ISCC.exe"
 }
 
 function CheckExitCode($msg) {
