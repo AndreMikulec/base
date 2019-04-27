@@ -236,7 +236,7 @@ Function InstallPerl {
 }
 
 Function InstallInno {
-  $inno_url = "http://jrsoftware.org/download.php/is-unicode.exe?site=2"
+  $inno_url = "http://jrsoftware.org/download.php/is.exe?site=2"
   #$inno_url = "https://github.com/jrsoftware/issrc/releases/download/is-5_6_1/innosetup-5.6.1-unicode.exe"
 
   Progress ("Downloading InnoSetup from: " + $inno_url)
