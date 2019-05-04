@@ -21,7 +21,7 @@ Debugging symbols are `not` included.
 
 ## Available Point Releases
 
-One may not be aware of a new release/point_release of R. E.g. a point release is like the  following: 3.5.z or 4.y.z.
+One may not be aware of a new release/point_release of R. E.g. a point release is like the  following: 3.6.z or 4.y.z.
 If so, inform one about it. Email to Andre_Mikulec@Homail.com.
 One then should then run the AppVeyor build to create the new release/point_releases.
 
@@ -125,7 +125,7 @@ and
 ```
 These may be useful?
 
-After one may install the debug version of R.
+After, one may install the debug version of R.
 One may then place these object (.o) files in the corresponding directories:
 ```
 bin\x64
