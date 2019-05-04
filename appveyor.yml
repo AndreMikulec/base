@@ -23,8 +23,8 @@ version: 0.1.0-{build}-{branch}
 
 environment:
   matrix:
-    - source: https://cran.r-project.org/src/base/R-latest.tar.gz
-      archive: r-latest
+    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+      archive: r-patched
       innosetup: 6
       cran: true
       MAKE_32BIT: 32-bit
@@ -33,8 +33,8 @@ environment:
       MARCHMTUNENAME: CPU Build CoreI7 with AVX2
       DIST_BUILD: without Debugging Symbols
       DEPLOYNAME: CoreI7_mAVX2_NoDebug
-    - source: https://cran.r-project.org/src/base/R-latest.tar.gz
-      archive: r-latest
+    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+      archive: r-patched
       innosetup: 6
       cran: true
       MAKE_32BIT: 32-bit DEBUG=T
