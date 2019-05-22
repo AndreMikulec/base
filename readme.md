@@ -28,15 +28,25 @@ One may not be aware of a new release/point_release of R. E.g. a point release i
 If so, inform one about it. Email to Andre_Mikulec@Homail.com.
 One then should then run the AppVeyor build to create the new release/point_releases.
 
-## Other: Official Version of R
+## Other: Official-Version/Patched-snapshot/Build-of-the-development (OPB) version of R
 
-If one may want the official version of R for windows, then one may go to any one of here: https://cran.r-project.org/bin/windows/base/, https://ftp.opencpu.org/current/, or https://github.com/rwinlib/base/releases.
+### Official Version of R
 
-## Differences From the Official Version of R
+If one may want the official version of R for windows, then one may go to any one of here: https://cran.r-project.org/bin/windows/base/, https://ftp.opencpu.org/archive/r-release/, or https://github.com/rwinlib/base/releases.
+
+### Patched snapshot version of R
+
+If one may want the Patched snapshot build of R for windows, then one may go here: https://cran.r-project.org/bin/windows/base/rpatched.html.
+
+### Build-of-the-development version of R
+
+If one may want the Build of the development version (which will eventually become the next major release) of R for windows, then one may go here: https://cran.r-project.org/bin/windows/base/rdevel.html.
+
+## Differences From the OPB version of R'
 
 ### Debugging Symbols
 
-Differences from the official version of R for windows https://github.com/rwinlib/base follow:
+From the OPB version of R for windows https://github.com/rwinlib/base differences (in here) follow:
 
 Because 64-bit Windows does not support dwarf-*, in the
 https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in file
