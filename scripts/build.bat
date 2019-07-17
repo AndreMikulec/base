@@ -92,8 +92,15 @@ type %R_HOME%\VERSION-NICK
 
 :: apply local patches
 cd %R_HOME%
-patch -p1 -i %SOURCEDIR%\patches\cairo.diff
 patch -p1 -i %SOURCEDIR%\patches\shortcut.diff
+
+:: Remove conditioning when r-devel switched to new toolchain
+if "%archive%" == "r-devel" (
+	echo "Skipping cairo patch"
+) else (
+	echo archive: %archive%
+	patch -p1 -i %SOURCEDIR%\patches\cairo.diff
+)
 
 :: Switch dir
 cd %R_HOME%/src/gnuwin32
