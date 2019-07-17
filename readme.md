@@ -42,7 +42,15 @@ If one may want the Patched snapshot build of R for windows, then one may go her
 
 If one may want the Build of the development version (which will eventually become the next major release) of R for windows, then one may go here: https://cran.r-project.org/bin/windows/base/rdevel.html.
 
-## Differences From the OPB version of R'
+## Differences From the OPB version of R
+
+### Major version of Inno Setup is explicitly chosen
+
+Configuration is in the files: appveyor.yml, MkRules.local.in, and build.bat.
+
+From rwinlib/base (May 5, 2019), see this commit.
+This commit was never applied to AndreMikulec/base.
+https://github.com/rwinlib/base/commit/8e4eeb2e44bf23764ffdf11e1366f01140829179
 
 ### Debugging Symbols
 
