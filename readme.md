@@ -57,8 +57,7 @@ https://github.com/rwinlib/base/commit/8e4eeb2e44bf23764ffdf11e1366f01140829179
 From the OPB version of R for windows https://github.com/rwinlib/base differences (in here) follow:
 
 Because 64-bit Windows does not support dwarf-*, in the
-https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in file
-added is
+https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in file, added is
 ```
 G_FLAG = -ggdb3 -Og
 ```
@@ -83,10 +82,9 @@ to
 make distribution DEBUG=T
 ```
 
-Again, because 64-bit Windows does not support dwarf-*,  
-in the
-https://github.com/AndreMikulec/base/blob/master/scripts/build.bat file
-after any R-ANY.tar.gz extraction of the file `src\gnuwin32\fixed\etc\Makeconf` file
+Again, because 64-bit Windows does not support dwarf-*, in the
+https://github.com/AndreMikulec/base/blob/master/scripts/build.bat file, after
+any R-ANY.tar.gz extraction of the file `src\gnuwin32\fixed\etc\Makeconf` file
 using
 ```
 sed -i "s/-gdwarf-2/-ggdb -Og/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
@@ -101,7 +99,7 @@ DEBUGFLAG=-ggdb3 -Og
 ```
 ### make: Warning: File '. . . /etc/i386/Makeconf' has modification time zzzzz s in the future
 
-Note: after the installation of R, upon a package install from source,
+Note, after the installation of R, upon a package install from source,
 that contains a source file in the sub-folder `\src`, the following message may occur:
 ```
 make: Warning: File '. . . /etc/i386/Makeconf' has modification time zzzzz s in the future
@@ -111,12 +109,11 @@ The reason for this message is the following.  Early in the Appveyor build job, 
 ### -march/-mtune in the Version Nickname
 
 In the
-https://github.com/AndreMikulec/base/blob/master/scripts/build.bat file
-using
+https://github.com/AndreMikulec/base/blob/master/scripts/build.bat file, using
 ```
 sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD%/g" %R_HOME%/VERSION-NICK
 ```
-changed is from
+changed, is from
 ```
 VERSION-NICK
 ```
@@ -160,8 +157,7 @@ bin\i386
 ## AppVeyor Build Deployments of R: `Generic_Debug` and `<CPU optimized>_NoDebug`.
 
 Located near the top of
-https://github.com/AndreMikulec/base/releases
-
+https://github.com/AndreMikulec/base/releases,
 one may get deployments from one of the `top` (recent) build-jobs.
 
 Expand the asset drop down arrow: [v}Asset 
