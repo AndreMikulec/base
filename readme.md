@@ -57,13 +57,13 @@ https://github.com/rwinlib/base/commit/8e4eeb2e44bf23764ffdf11e1366f01140829179
 From the OPB version of R for windows https://github.com/rwinlib/base differences (in here) follow:
 
 Because 64-bit Windows does not support dwarf-*, in the
-https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in file, added is
+file https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in, added, is
 ```
 G_FLAG = -ggdb3 -Og
 ```
 
 In the Debug variant of R `Generic_Debug` in the
-https://github.com/AndreMikulec/base/blob/master/scripts/build.bat file, changed is from
+file https://github.com/AndreMikulec/base/blob/master/scripts/build.bat, changed, is from
 ```
 make 32-bit
 ```
@@ -73,7 +73,7 @@ make 32-bit DEBUG=T
 ```
 
 In the Debug variant of R `Generic_Debug` in the
-https://github.com/AndreMikulec/base/blob/master/scripts/build.bat file, changed is from
+file https://github.com/AndreMikulec/base/blob/master/scripts/build.bat, changed, is from
 ```
 make distribution
 ```
@@ -83,8 +83,8 @@ make distribution DEBUG=T
 ```
 
 Again, because 64-bit Windows does not support dwarf-*, in the
-https://github.com/AndreMikulec/base/blob/master/scripts/build.bat file, after
-any R-ANY.tar.gz extraction of the file `src\gnuwin32\fixed\etc\Makeconf` file
+file https://github.com/AndreMikulec/base/blob/master/scripts/build.bat, after
+any R-ANY.tar.gz extraction of the file `src\gnuwin32\fixed\etc\Makeconf`
 using
 ```
 sed -i "s/-gdwarf-2/-ggdb -Og/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
@@ -109,7 +109,7 @@ The reason for this message is the following.  Early in the Appveyor build job, 
 ### -march/-mtune in the Version Nickname
 
 In the
-https://github.com/AndreMikulec/base/blob/master/scripts/build.bat file, using
+file https://github.com/AndreMikulec/base/blob/master/scripts/build.bat, using
 ```
 sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD%/g" %R_HOME%/VERSION-NICK
 ```
@@ -124,7 +124,7 @@ VERSION-NICK %MARCHMTUNENAME% %DIST_BUILD%
 ### No Code Signing
 
 In the
-https://github.com/rwinlib/base/blob/master/appveyor.yml file, removed is the signing section. The file `C:\jeroen.pfx` is not available.
+file https://github.com/rwinlib/base/blob/master/appveyor.yml, removed, is the signing section. The file `C:\jeroen.pfx` is not available.
 
 ### R Tests are Skipped 
 
@@ -138,7 +138,7 @@ https://ftp.opencpu.org/archive/r-release/R-x.y.z/check.log
 ```
 ### Object Files (.o) are Distributed
 
-From `R-source-win64\src\gnuwin32\front-ends` and `R-source-win32\src\gnuwin32\front-ends` object (.o) files (with or without debugging symbols) are contained in . . .
+From the directories `R-source-win64\src\gnuwin32\front-ends` and `R-source-win32\src\gnuwin32\front-ends` object (.o) files (with or without debugging symbols) are contained in . . .
 ```
 *-FEobjs64.zip
 and
@@ -147,7 +147,7 @@ and
 These may be useful?
 
 After, one may install the debug version of R `Generic_Debug`.
-One may then place these object (.o) files in the corresponding directories:
+One may then place these object (.o) files in the correct directories:
 ```
 bin\x64
 and
@@ -157,7 +157,7 @@ bin\i386
 ## AppVeyor Build Deployments of R: `Generic_Debug` and `<CPU optimized>_NoDebug`.
 
 Located near the top of
-https://github.com/AndreMikulec/base/releases,
+the page https://github.com/AndreMikulec/base/releases,
 one may get deployments from one of the `top` (recent) build-jobs.
 
 Expand the asset drop down arrow: [v}Asset 
