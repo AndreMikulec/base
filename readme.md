@@ -100,7 +100,7 @@ DEBUGFLAG=-ggdb3 -Og
 
 ### EOPTS is explicity chosen
 
-Because, of the various custom march/mtune runs of these AppVeyor builds
+Because, of the various custom march/mtune runs of these AppVeyor build-jobs
 and the changing of march/mtune
 
 In the 
