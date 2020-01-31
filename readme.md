@@ -97,14 +97,22 @@ to
 ```
 DEBUGFLAG=-ggdb3 -Og
 ```
-### make: Warning: File '. . . /etc/i386/Makeconf' has modification time zzzzz s in the future
 
-Note, after the installation of R, upon a package install from source,
-that contains a source file in the sub-folder `\src`, the following message may occur:
+### EOPTS is explicity chosen
+
+Because, of the various custom march/mtune runs of these AppVeyor builds
+and the changing of march/mtune
+
+In the 
+file https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in 
 ```
-make: Warning: File '. . . /etc/i386/Makeconf' has modification time zzzzz s in the future
+EOPTS = -mtune=generic
 ```
-The reason for this message is the following.  Early in the Appveyor build job, the time zone was changed to UTC.  After the time zone change, the file Makeconf was modified ( above by 'sed').  The time zone is not stored in OS metadata about a file. This message can be ignored.  This message will *no longer display* in zzzzz/3600 hours.
+is retained whereas in the OPB version of R
+```
+# EOPTS = -mtune=generic
+```
+is explicity removed (commented out).
 
 ### -march/-mtune in the Version Nickname
 
@@ -121,6 +129,7 @@ to
 ```
 VERSION-NICK %MARCHMTUNENAME% %DIST_BUILD%
 ```
+
 ### No Code Signing
 
 In the
@@ -136,6 +145,15 @@ https://ftp.opencpu.org/current/check.log
 https://ftp.opencpu.org/archive/r-patched/svn_number/check.log
 https://ftp.opencpu.org/archive/r-release/R-x.y.z/check.log
 ```
+### make: Warning: File '. . . /etc/i386/Makeconf' has modification time zzzzz s in the future
+
+Note, after the installation of R, upon a package install from source,
+that contains a source file in the sub-folder `\src`, the following message may occur:
+```
+make: Warning: File '. . . /etc/i386/Makeconf' has modification time zzzzz s in the future
+```
+The reason for this message is the following.  Early in the Appveyor build job, the time zone was changed to UTC.  After the time zone change, the file Makeconf was modified ( above by 'sed').  The time zone is not stored in OS metadata about a file. This message can be ignored.  This message will *no longer display* in zzzzz/3600 hours.
+
 ### Object Files (.o) are Distributed
 
 From the directories `R-source-win64\src\gnuwin32\front-ends` and `R-source-win32\src\gnuwin32\front-ends` object (.o) files (with or without debugging symbols) are contained in . . .
