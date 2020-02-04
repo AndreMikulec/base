@@ -61,8 +61,29 @@ sed -e "s|@win@|%WIN%|" -e "s|@home@|%XR_HOME%|" -e "s|@home32@|%XHOME32%|" -e "
 REM
 REM  Andre Mikulec
 REM
+
+echo BEGIN - BEFORE custom EOPTS - MkRules.rules
+echo type %R_HOME%\src\gnuwin32\MkRules.rules
+type %R_HOME%\src\gnuwin32\MkRules.rules               2> nul
+echo AFTER - BEFORE custom EOPTS - MkRules.rules
+
+echo BEGIN - BEFORE custom EOPTS - MkRules.local
+echo type %R_HOME%\src\gnuwin32\MkRules.local
+type %R_HOME%\src\gnuwin32\MkRules.local               2> nul
+echo AFTER - BEFORE custom EOPTS - MkRules.local
+
 sed -i "s/^EOPTS.*/EOPTS = %MARCHMTUNE%/g" %R_HOME%/src/gnuwin32/MkRules.local
 type %R_HOME%\src\gnuwin32\MkRules.local
+
+echo  BEGIN - AFTER custom EOPTS - MkRules.local
+echo type %R_HOME%\src\gnuwin32\MkRules.local
+type %R_HOME%\src\gnuwin32\MkRules.local               2> nul
+echo  END - AFTER custom EOPTS - MkRules.local
+
+echo  BEGIN - AFTER custom EOPTS - MkRules.rules
+echo type %R_HOME%\src\gnuwin32\MkRules.rules
+type %R_HOME%\src\gnuwin32\MkRules.rules               2> nul
+echo  END - AFTER custom EOPTS - MkRules.rules
 
 :: Copy libraries
 cp -R %SOURCEDIR%\libcurl %R_HOME%\libcurl
