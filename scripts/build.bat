@@ -67,23 +67,45 @@ echo type %R_HOME%\src\gnuwin32\MkRules.rules
 type %R_HOME%\src\gnuwin32\MkRules.rules               2> nul
 echo AFTER - BEFORE custom EOPTS - MkRules.rules
 
+echo BEGIN - AFTER custom EOPTS - MkRules.local.in
+echo type %SOURCEDIR%\files\MkRules.local.in
+type %SOURCEDIR%\files\MkRules.local.in                2> nul
+echo AFTER - AFTER custom EOPTS - MkRules.local.in
+
 echo BEGIN - BEFORE custom EOPTS - MkRules.local
 echo type %R_HOME%\src\gnuwin32\MkRules.local
 type %R_HOME%\src\gnuwin32\MkRules.local               2> nul
 echo AFTER - BEFORE custom EOPTS - MkRules.local
 
-sed -i "s/^EOPTS.*/EOPTS = %MARCHMTUNE%/g" %R_HOME%/src/gnuwin32/MkRules.local
-type %R_HOME%\src\gnuwin32\MkRules.local
+echo BEGIN - BEFORE custom EOPTS - MkRules.dist
+echo type %R_HOME%\src\gnuwin32\MkRules.dist
+type %R_HOME%\src\gnuwin32\MkRules.dist                2> nul
+echo AFTER - BEFORE custom EOPTS - MkRules.dist
 
-echo  BEGIN - AFTER custom EOPTS - MkRules.local
-echo type %R_HOME%\src\gnuwin32\MkRules.local
-type %R_HOME%\src\gnuwin32\MkRules.local               2> nul
-echo  END - AFTER custom EOPTS - MkRules.local
+REM 
+REM ANDRE
+REM DOES *NOT WORK* WHEN
+REM   %R_HOME%\src\gnuwin32\MkRules.rules
+REM     HAS A CUSTOM ENTRY 
+REM
+REM BAD sed -i "s/^EOPTS.*/EOPTS = %MARCHMTUNE%/g" %R_HOME%/src/gnuwin32/MkRules.local
+REM BAD type %R_HOME%\src\gnuwin32\MkRules.local
 
-echo  BEGIN - AFTER custom EOPTS - MkRules.rules
-echo type %R_HOME%\src\gnuwin32\MkRules.rules
-type %R_HOME%\src\gnuwin32\MkRules.rules               2> nul
-echo  END - AFTER custom EOPTS - MkRules.rules
+REM 
+REM ANDRE
+REM 
+REM clue from . . .
+REM https://github.com/wch/r-source/search?q=EOPTS&unscoped_q=EOPTS
+REM 
+REM  additional optimization flags (e.g. -mtune=native for a private build)
+REM  src/gnuwin32/MkRules.dist
+REM
+sed -i -e 's/^# EOPTS =.*/EOPTS =/' -e 's/^EOPTS =.*/EOPTS = %MARCHMTUNE%/' %R_HOME%/src/gnuwin32/MkRules.dist
+
+echo BEGIN - AFTER custom EOPTS - MkRules.dist
+echo type %R_HOME%\src\gnuwin32\MkRules.dist
+type %R_HOME%\src\gnuwin32\MkRules.dist               2> nul
+echo AFTER - AFTER custom EOPTS - MkRules.dist
 
 :: Copy libraries
 cp -R %SOURCEDIR%\libcurl %R_HOME%\libcurl
