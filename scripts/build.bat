@@ -51,54 +51,81 @@ tar -xf %SOURCEDIR%/%TARBALL% -C %R_NAME% --strip-components=1
 REM
 REM  Andre Mikulec
 REM
-sed -i "s/-gdwarf-2/-ggdb -Og/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
+REM Basically MkRules.dist is aa SAMPLE.
+REM Later ONE manully copies this file  OVER to 
+REM become the NEW MkRules.local.  Next, ONE customizes MkRules.local.
+REM https://cran.r-project.org/doc/manuals/r-patched/R-admin.html
+REM 
+REM additional optimization flags (e.g. -mtune=native for a private build)
+REM ARE WORDS FOUND IN src/gnuwin32/MkRules.dist
+REM
+REM echo BEGIN - BEFORE custom EOPTS - MkRules.dist
+REM echo type %R_HOME%\src\gnuwin32\MkRules.dist
+REM type %R_HOME%\src\gnuwin32\MkRules.dist                2> nul
+REM echo AFTER - BEFORE custom EOPTS - MkRules.dist
+
+REM MkRules.rules is the DEFAULT
+REM
+REM What is the purpose of MkRules.local.in and MkRules.rules ?
+REM https://github.com/rwinlib/base/issues/25
+REM
+echo BEGIN - BEFORE custom EOPTS - MkRules.rules
+echo type %R_HOME%\src\gnuwin32\MkRules.rules
+type %R_HOME%\src\gnuwin32\MkRules.rules               2> nul
+echo AFTER - BEFORE custom EOPTS - MkRules.rules
+
+REM MkRules.local.in gets copied into MkRules.local after some substitutions
+REM
+REM What is the purpose of MkRules.local.in and MkRules.rules ?
+REM https://github.com/rwinlib/base/issues/25
+REM
+echo BEGIN - BEFORE custom EOPTS - MkRules.local
+echo type %R_HOME%\src\gnuwin32\MkRules.local
+type %R_HOME%\src\gnuwin32\MkRules.local               2> nul
+echo AFTER - BEFORE custom EOPTS - MkRules.local
+
+echo BEGIN - BEFORE custom EOPTS - MkRules.local.in
+echo type %SOURCEDIR%\files\MkRules.local.in
+type %SOURCEDIR%\files\MkRules.local.in                2> nul
+echo AFTER - BEFORE custom EOPTS - MkRules.local.in
 
 set XR_HOME=%R_HOME:\=/%
 set XHOME32=%HOME32:\=/%
 sed -e "s|@win@|%WIN%|" -e "s|@home@|%XR_HOME%|" -e "s|@home32@|%XHOME32%|" -e "s|@inno@|%innosetup%|"^
 	      %SOURCEDIR%\files\MkRules.local.in > %R_HOME%/src/gnuwin32/MkRules.local
 
+echo BEGIN - AFTER custom EOPTS - MkRules.local
+echo type %R_HOME%\src\gnuwin32\MkRules.local
+type %R_HOME%\src\gnuwin32\MkRules.local               2> nul
+echo AFTER - AFTER custom EOPTS - MkRules.local
+
+REM a VARIABLE if it has not been set yet
+REM could overrided  by defining that VARIABLE in MkRules.local
 REM
-REM  Andre Mikulec
+REM This is standard gnu make syntax that sets a variable if it has not been set yet.
+REM  ?=
 REM
-REM Basically MkRules.dist is aa SAMPLE.
-REM Later ONE manully copies this file  OVER to 
-REM become the NEW MkRules.local.  Next, ONE customizes MkRules.local.
+REM Andre
+REM
+REM The case seems that in MkRules.local a hard coded override VALUE 
+REM that is a VALUE without the (?=) 
+REM is the FINAL value (overriding any previous values))
+REM
+REM What is the purpose of MkRules.local.in and MkRules.rules ?
+REM https://github.com/rwinlib/base/issues/25
+REM
+REM clue from . . .
+REM https://github.com/wch/r-source/search?q=EOPTS&unscoped_q=EOPTS
+REM
+REM Andre
+REM
+REM The manual always explains that MkRules.local is where my CUSTOM changes must end up.
 REM https://cran.r-project.org/doc/manuals/r-patched/R-admin.html
-REM 
-REM echo BEGIN - BEFORE custom EOPTS - MkRules.dist
-REM echo type %R_HOME%\src\gnuwin32\MkRules.dist
-REM type %R_HOME%\src\gnuwin32\MkRules.dist                2> nul
-REM echo AFTER - BEFORE custom EOPTS - MkRules.dist
-
-# ORDER?
-
-echo BEGIN - BEFORE custom EOPTS - MkRules.rules
-echo type %R_HOME%\src\gnuwin32\MkRules.rules
-type %R_HOME%\src\gnuwin32\MkRules.rules               2> nul
-echo AFTER - BEFORE custom EOPTS - MkRules.rules
-
-echo BEGIN - AFTER custom EOPTS - MkRules.local.in
-echo type %SOURCEDIR%\files\MkRules.local.in
-type %SOURCEDIR%\files\MkRules.local.in                2> nul
-echo AFTER - AFTER custom EOPTS - MkRules.local.in
-
+REM
 echo BEGIN - BEFORE custom EOPTS - MkRules.local
 echo type %R_HOME%\src\gnuwin32\MkRules.local
 type %R_HOME%\src\gnuwin32\MkRules.local               2> nul
 echo AFTER - BEFORE custom EOPTS - MkRules.local
-
-REM 
-REM ANDRE
-REM 
-REM clue from . . .
-REM https://github.com/wch/r-source/search?q=EOPTS&unscoped_q=EOPTS
-REM 
-REM The manual always explains that MkRules.local is where my CUSTOM changes must end up.
-REM https://cran.r-project.org/doc/manuals/r-patched/R-admin.html
-REM
-REM  additional optimization flags (e.g. -mtune=native for a private build)
-REM  ARE WORDS FOUND IN src/gnuwin32/MkRules.dist
 REM
 sed -i -e 's/^# EOPTS =.*/EOPTS =/' -e 's/^EOPTS =.*/EOPTS = %MARCHMTUNE%/' %R_HOME%/src/gnuwin32/MkRules.local
 
@@ -106,6 +133,34 @@ echo BEGIN - AFTER custom EOPTS - MkRules.local
 echo type %R_HOME%\src\gnuwin32\MkRules.local
 type %R_HOME%\src\gnuwin32\MkRules.local               2> nul
 echo AFTER - AFTER custom EOPTS - MkRules.local
+
+echo BEGIN  - BEFORE Custom  DEBUGFLAG - Makeconf
+echo %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
+type %R_HOME%/src/gnuwin32/fixed/etc/Makeconf         2> nul
+echo END  - BEFORE Custom  DEBUGFLAG - Makeconf
+
+REM Because Microsoft Corporation
+REM does not support dwarf debugging symbols on 64 bit Windows
+REM
+REM ifdef DEBUG
+REM   DLLFLAGS=
+REM   DEBUGFLAG=-gdwarf-2
+REM else
+REM   DLLFLAGS=-s
+REM   DEBUGFLAG=
+REM endif
+REM https://github.com/wch/r-source/blob/R-3-6-branch/src/gnuwin32/fixed/etc/Makeconf
+REM
+REM NOTE MkRules.local (in the MAKING process) is fed into etc/Makeconf
+REM
+REM sed -e . MkRules VARIABLE SUBSTITUTION . etc/Makeconf > ../../../etc/i386/Makeconf
+REM
+sed -i "s/-gdwarf-2/-ggdb -Og/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
+
+echo BEGIN  - AFTER Custom  DEBUGFLAG - Makeconf
+echo %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
+type %R_HOME%/src/gnuwin32/fixed/etc/Makeconf    2> nul
+echo END  - AFTER Custom  DEBUGFLAG - Makeconf
 
 :: Copy libraries
 cp -R %SOURCEDIR%\libcurl %R_HOME%\libcurl

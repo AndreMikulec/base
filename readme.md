@@ -103,16 +103,19 @@ DEBUGFLAG=-ggdb3 -Og
 Because, of the various custom march/mtune runs of these AppVeyor build-jobs
 and the changing of march/mtune
 
-In the 
-file https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in 
+in the
+file https://github.com/AndreMikulec/base/blob/master/files/MkRules.rules  in the OPB version of R
 ```
-EOPTS = -mtune=generic
+EOPTS ?= -mfpmath=sse -msse2
 ```
-is retained whereas in the OPB version of R
+is explicity set.
+
+However, in the
+file https://github.com/AndreMikulec/base/blob/master/files/MkRules.local
 ```
-# EOPTS = -mtune=generic
+EOPTS = %MARCHMTUNE%
 ```
-is explicity removed (commented out).
+explitly overrides the former value.
 
 ### -march/-mtune in the Version Nickname
 
