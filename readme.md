@@ -4,7 +4,7 @@
 
 ## AppVeyor R Build Variants
 
-Two build of R exists: `Generic_Debug` and `<CPU optimized>_NoDebug`.
+Two build of R exist: `Generic_Debug` and `<CPU optimized>_NoDebug`.
 
 ### Generic_Debug Build
 
