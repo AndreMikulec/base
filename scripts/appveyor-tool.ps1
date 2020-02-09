@@ -150,6 +150,16 @@ Function InstallRtools {
 
   if ($rtoolsver -eq "40") {
 
+    $env:PATH = $RtoolsDrive + '\rtools40\bin;' + $RtoolsDrive + '\rtools40\MinGW\bin;' + $RtoolsDrive + '\rtools40\' + $gcc_path + '\bin;' + $env:PATH
+
+    }  Else {
+
+    $env:PATH = $RtoolsDrive + '\Rtools\bin;' + $RtoolsDrive + '\Rtools\MinGW\bin;' + $RtoolsDrive + '\Rtools\' + $gcc_path + '\bin;' + $env:PATH
+
+  }
+
+  if ($rtoolsver -eq "40") {
+
     $env:BINPREF=$RtoolsDrive + '/Rtools40/mingw$(WIN)/bin/'
 
     }  Else {
