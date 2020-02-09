@@ -44,6 +44,18 @@ If one may want the Build of the development version (which will eventually beco
 
 ## Differences From the OPB version of R
 
+
+### Multiple build-job combinations may be attempted
+
+This is configured In the
+file https://github.com/AndreMikulec/base/blob/master/appveyor.yml
+and place:
+```
+environment:
+  matrix:
+```
+
+
 ### Major version of Inno Setup is explicitly chosen
 
 Configuration is in the files: appveyor.yml, MkRules.local.in, and build.bat.
@@ -52,16 +64,32 @@ From rwinlib/base (May 5, 2019), see this commit.
 This commit was never applied to AndreMikulec/base.
 https://github.com/rwinlib/base/commit/8e4eeb2e44bf23764ffdf11e1366f01140829179
 
+
+### Rtools version is explicitly chosen
+
+The OPB version of R for windows only chooses to build on the default Rtools version.
+Multiple(or different) Rtools %RTOOLS_VERSION% versions are chosen.
+
+This is configured In the
+file https://github.com/AndreMikulec/base/blob/master/appveyor.yml
+and place:
+
+```
+environment:
+  matrix:
+```
+
+
 ### Debugging Symbols
 
-From the OPB version of R for windows https://github.com/rwinlib/base differences (in here) follow:
+From the OPB version of R for windows in the file
+https://github.com/rwinlib/base differences (in here) follow:
 
 Because 64-bit Windows does not support dwarf-*, in the
 file https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in, added, is
 ```
-G_FLAG = -ggdb3 -Og
+G_FLAG = -ggdb3
 ```
-
 In the Debug variant of R `Generic_Debug` in the
 file https://github.com/AndreMikulec/base/blob/master/scripts/build.bat, changed, is from
 ```
@@ -71,7 +99,6 @@ to
 ```
 make 32-bit DEBUG=T
 ```
-
 In the Debug variant of R `Generic_Debug` in the
 file https://github.com/AndreMikulec/base/blob/master/scripts/build.bat, changed, is from
 ```
@@ -82,12 +109,15 @@ to
 make distribution DEBUG=T
 ```
 
+
+### Debugging symbols may be gdb
+
 Again, because 64-bit Windows does not support dwarf-*, in the
 file https://github.com/AndreMikulec/base/blob/master/scripts/build.bat, after
 any R-ANY.tar.gz extraction of the file `src\gnuwin32\fixed\etc\Makeconf`
 using
 ```
-sed -i "s/-gdwarf-2/-ggdb -Og/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
+sed -i "s/-gdwarf-2/-ggdb/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
 ```
 changed, is from
 ```
@@ -95,34 +125,34 @@ DEBUGFLAG=-gdwarf-2
 ```
 to
 ```
-DEBUGFLAG=-ggdb3 -Og
+DEBUGFLAG=-ggdb3
 ```
+
 
 ### EOPTS is explicity chosen
 
 Because, of the various custom march/mtune runs of these AppVeyor build-jobs
-and the changing of march/mtune
-
-in the
-file https://github.com/AndreMikulec/base/blob/master/files/MkRules.rules  in the OPB version of R
+and the changing of march/mtune in the
+file https://github.com/AndreMikulec/base/blob/master/files/MkRules.rules
+in the OPB version of R
 ```
 EOPTS ?= -mfpmath=sse -msse2
 ```
 is explicity set.
-
 However, in the
 file https://github.com/AndreMikulec/base/blob/master/files/MkRules.local
 ```
 EOPTS = %MARCHMTUNE%
 ```
-explitly overrides the former value.
+explicitly overrides the former value.
+
 
 ### -march/-mtune in the Version Nickname
 
 In the
 file https://github.com/AndreMikulec/base/blob/master/scripts/build.bat, using
 ```
-sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD%/g" %R_HOME%/VERSION-NICK
+sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD% Rtools %RTOOLS_VERSION%/g" %R_HOME%/VERSION-NICK
 ```
 changed, is from
 ```
@@ -130,13 +160,16 @@ VERSION-NICK
 ```
 to
 ```
-VERSION-NICK %MARCHMTUNENAME% %DIST_BUILD%
+VERSION-NICK %MARCHMTUNENAME% %DIST_BUILD% Rtools %RTOOLS_VERSION%
 ```
+
 
 ### No Code Signing
 
-In the
-file https://github.com/rwinlib/base/blob/master/appveyor.yml, removed, is the signing section. The file `C:\jeroen.pfx` is not available.
+The upstream
+file https://github.com/rwinlib/base/blob/master/appveyor.yml, has a signing section.
+Removed, is the signing section. The file `C:\jeroen.pfx` is not available.
+
 
 ### R Tests are Skipped 
 
@@ -148,6 +181,8 @@ https://ftp.opencpu.org/current/check.log
 https://ftp.opencpu.org/archive/r-patched/svn_number/check.log
 https://ftp.opencpu.org/archive/r-release/R-x.y.z/check.log
 ```
+
+
 ### make: Warning: File '. . . /etc/i386/Makeconf' has modification time zzzzz s in the future
 
 Note, after the installation of R, upon a package install from source,
@@ -156,6 +191,7 @@ that contains a source file in the sub-folder `\src`, the following message may 
 make: Warning: File '. . . /etc/i386/Makeconf' has modification time zzzzz s in the future
 ```
 The reason for this message is the following.  Early in the Appveyor build job, the time zone was changed to UTC.  After the time zone change, the file Makeconf was modified ( above by 'sed').  The time zone is not stored in OS metadata about a file. This message can be ignored.  This message will *no longer display* in zzzzz/3600 hours.
+
 
 ### Object Files (.o) are Distributed
 
@@ -174,6 +210,7 @@ bin\x64
 and
 bin\i386
 ```
+
 
 ## AppVeyor Build Deployments of R: `Generic_Debug` and `<CPU optimized>_NoDebug`.
 

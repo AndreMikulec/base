@@ -50,4 +50,4 @@ CAIRO_LIBS = "-L$(CAIRO_HOME)/win$(WIN) -lcairo -lfreetype -lpng -lpixman-1 -lha
 ###
 ###  Andre Mikulec
 ###
-G_FLAG = -ggdb3 -Og
+G_FLAG = -ggdb3

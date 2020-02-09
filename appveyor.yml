@@ -39,12 +39,46 @@ environment:
       archive: r-devel
       innosetup: 6
       cran: true
+      MAKE_32BIT: 32-bit DEBUG=T
+      MAKE_DISTRIBUTION: distribution DEBUG=T
+      MARCHMTUNE: -mfpmath=sse -msse2
+      MARCHMTUNENAME: CPU Build Generic
+      DIST_BUILD: with Debugging Symbols
+      DEPLOYNAME: Generic_Debug
+      RTOOLS_VERSION: 35
+    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+      archive: r-patched
+      innosetup: 6
+      cran: true
+      MAKE_32BIT: 32-bit DEBUG=T
+      MAKE_DISTRIBUTION: distribution DEBUG=T
+      MARCHMTUNE: -mfpmath=sse -msse2
+      MARCHMTUNENAME: CPU Build Generic
+      DIST_BUILD: with Debugging Symbols
+      DEPLOYNAME: Generic_Debug
+      RTOOLS_VERSION: 35
+    - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
+      archive: r-devel
+      innosetup: 6
+      cran: true
       MAKE_32BIT: 32-bit
       MAKE_DISTRIBUTION: distribution
-      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -mavx -mavx2
+      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
       MARCHMTUNENAME: CPU Build CoreI7 with AVX2
       DIST_BUILD: without Debugging Symbols
       DEPLOYNAME: CoreI7_mAVX2_NoDebug
+      RTOOLS_VERSION: 35
+    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+      archive: r-patched
+      innosetup: 6
+      cran: true
+      MAKE_32BIT: 32-bit
+      MAKE_DISTRIBUTION: distribution
+      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
+      MARCHMTUNENAME: CPU Build CoreI7 with AVX2
+      DIST_BUILD: without Debugging Symbols
+      DEPLOYNAME: CoreI7_mAVX2_NoDebug
+      RTOOLS_VERSION: 35
     - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       archive: r-devel
       innosetup: 6
@@ -55,16 +89,7 @@ environment:
       MARCHMTUNENAME: CPU Build Generic
       DIST_BUILD: with Debugging Symbols
       DEPLOYNAME: Generic_Debug
-    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
-      archive: r-patched
-      innosetup: 6
-      cran: true
-      MAKE_32BIT: 32-bit
-      MAKE_DISTRIBUTION: distribution
-      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -mavx -mavx2
-      MARCHMTUNENAME: CPU Build CoreI7 with AVX2
-      DIST_BUILD: without Debugging Symbols
-      DEPLOYNAME: CoreI7_mAVX2_NoDebug
+      RTOOLS_VERSION: 40
     - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       archive: r-patched
       innosetup: 6
@@ -75,6 +100,29 @@ environment:
       MARCHMTUNENAME: CPU Build Generic
       DIST_BUILD: with Debugging Symbols
       DEPLOYNAME: Generic_Debug
+      RTOOLS_VERSION: 40
+    - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
+      archive: r-devel
+      innosetup: 6
+      cran: true
+      MAKE_32BIT: 32-bit
+      MAKE_DISTRIBUTION: distribution
+      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
+      MARCHMTUNENAME: CPU Build CoreI7 with AVX2
+      DIST_BUILD: without Debugging Symbols
+      DEPLOYNAME: CoreI7_mAVX2_NoDebug
+      RTOOLS_VERSION: 40
+    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+      archive: r-patched
+      innosetup: 6
+      cran: true
+      MAKE_32BIT: 32-bit
+      MAKE_DISTRIBUTION: distribution
+      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
+      MARCHMTUNENAME: CPU Build CoreI7 with AVX2
+      DIST_BUILD: without Debugging Symbols
+      DEPLOYNAME: CoreI7_mAVX2_NoDebug
+      RTOOLS_VERSION: 40
 
 # #
 # #    - source: https://cran.r-project.org/src/base/R-3/R-3.5.0.tar.gz
@@ -166,16 +214,16 @@ build_script:
   - echo begin 7z of  logs.zip
   - 7z a              logs.zip %builddir%\*.log
   - echo end   7z of  logs.zip
-  - echo begin 7z of "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
-  - 7z a             "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip" logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip
-  - echo end   7z of "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
+  - echo begin 7z of "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%_Rtools_%RTOOLS_VERSION%.zip"
+  - 7z a             "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%_Rtools_%RTOOLS_VERSION%.zip" logs.zip %target%-FEobjs64.zip %target%-FEobjs32.zip %target%-win.zip
+  - echo end   7z of "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%_Rtools_%RTOOLS_VERSION%.zip"
   - echo End build_script: environment variables
   - time /t
   - set
 
 artifacts:
-  - path: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
-    name: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
+  - path: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%_Rtools_%RTOOLS_VERSION%.zip"
+    name: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%_Rtools_%RTOOLS_VERSION%.zip"
 
 on_finish:
   - 7z a logs.zip %builddir%\*.log
@@ -197,11 +245,11 @@ skip_tags: true
 # skip_non_tags: true
 
 deploy:
-  release: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
+  release: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%_Rtools_%RTOOLS_VERSION%.zip"
   provider: GitHub
   auth_token:
     secure: KzS1DumC2yBg2LGN9x3AemHFOjAdp+rD58rW5aGGpwW4Pfdwdm7AmRpYKprPY8Gs
-  artifact: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%.zip"
+  artifact: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%_Rtools_%RTOOLS_VERSION%.zip"
   draft: false
   prerelease: false
   on:

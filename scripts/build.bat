@@ -155,7 +155,7 @@ REM NOTE MkRules.local (in the MAKING process) is fed into etc/Makeconf
 REM
 REM sed -e . MkRules VARIABLE SUBSTITUTION . etc/Makeconf > ../../../etc/i386/Makeconf
 REM
-sed -i "s/-gdwarf-2/-ggdb -Og/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
+sed -i "s/-gdwarf-2/-ggdb3/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
 
 echo BEGIN  - AFTER Custom  DEBUGFLAG - Makeconf
 echo %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
@@ -183,7 +183,7 @@ xcopy /s "%SOURCEDIR%\cairo\include\cairo" "%R_HOME%\cairo\win64"
 REM
 REM  Andre Mikulec
 REM
-sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD%/g" %R_HOME%/VERSION-NICK
+sed -i "s/\(.*\)/\1 %MARCHMTUNENAME% %DIST_BUILD% Rtools %RTOOLS_VERSION%/g" %R_HOME%/VERSION-NICK
 type %R_HOME%\VERSION-NICK
 
 ::echo PATH="C:\Rtools\bin;${PATH}" > %R_HOME%/etc/Renviron.site
