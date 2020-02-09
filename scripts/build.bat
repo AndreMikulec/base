@@ -42,7 +42,26 @@ mkdir %R_NAME%
 
 :: Needed to fix tar symlinks
 set MSYS=winsymlinks:lnk
-tar -xf %SOURCEDIR%/%TARBALL% -C %R_NAME% --strip-components=1
+REM tar -xf %SOURCEDIR%/%TARBALL% -C %R_NAME% --strip-components=1
+REM
+REM avoid RARE GNU tar error
+REM tar: Cannot connect to C: resolve failed
+REM
+REM The reason is that tar interprets colons (:) in file names as meaning
+REM it is a file on another machine. You can disable this behavior by using the flag --force-local
+REM
+REM Windows command line tar "cannot connect to d: resolve failed" with Chef Knife
+REM 2013
+REM https://stackoverflow.com/questions/12823499/windows-command-line-tar-cannot-connect-to-d-resolve-failed-with-chef-knife
+REM tar extraction depends on filename?
+REM 2012
+REM https://unix.stackexchange.com/questions/13377/tar-extraction-depends-on-filename/13381#13381
+REM --force-local      archive file is local even if it has a colon
+REM https://linux.die.net/man/1/tar
+REM
+tar -xf %SOURCEDIR%/%TARBALL% -C %R_NAME% --strip-components=1 --force-local
+
+
 
 :: Temp workaround for broken R-devel symlink tests
 ::set MSYS=
