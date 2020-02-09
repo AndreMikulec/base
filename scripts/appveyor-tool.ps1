@@ -160,7 +160,7 @@ Function InstallRtools {
 
   if ($rtoolsver -eq "40") {
 
-    $env:BINPREF=$RtoolsDrive + '/Rtools40/mingw$(WIN)/bin/'
+    $env:BINPREF=$RtoolsDrive + '/rtools40/mingw$(WIN)/bin/'
 
     }  Else {
 
