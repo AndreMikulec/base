@@ -120,7 +120,15 @@ Function InstallRtools {
     $rtoolsver = $env:RTOOLS_VERSION
   }
 
-  $rtoolsurl = $CRAN + "/bin/windows/Rtools/Rtools$rtoolsver.exe"
+  if ($rtoolsver -eq "40") {
+
+    $rtoolsurl =  $CRAN + "/bin/windows/testing/rtools40-x86_64.exe"
+
+    }  Else {
+
+    $rtoolsurl =  $CRAN + "/bin/windows/Rtools/Rtools$rtoolsver.exe"
+
+  }
 
   Progress ("Downloading Rtools from: " + $rtoolsurl)
   & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../Rtools-current.exe -L $rtoolsurl
