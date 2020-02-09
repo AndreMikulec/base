@@ -147,7 +147,17 @@ Function InstallRtools {
     $gcc_path = $env:GCC_PATH
   }
   $env:PATH = $RtoolsDrive + '\Rtools\bin;' + $RtoolsDrive + '\Rtools\MinGW\bin;' + $RtoolsDrive + '\Rtools\' + $gcc_path + '\bin;' + $env:PATH
-  $env:BINPREF=$RtoolsDrive + '/Rtools/mingw_$(WIN)/bin/'
+
+  if ($rtoolsver -eq "40") {
+
+    $env:BINPREF=$RtoolsDrive + '/Rtools40/mingw$(WIN)/bin/'
+
+    }  Else {
+
+    $env:BINPREF=$RtoolsDrive + '/Rtools/mingw_$(WIN)/bin/'
+
+  }
+
 }
 
 Function Bootstrap {
