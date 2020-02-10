@@ -46,39 +46,6 @@ environment:
       DIST_BUILD: with Debugging Symbols
       DEPLOYNAME: Generic_Debug
       RTOOLS_VERSION: 40
-    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
-      archive: r-patched
-      innosetup: 6
-      cran: true
-      MAKE_32BIT: 32-bit DEBUG=T
-      MAKE_DISTRIBUTION: distribution DEBUG=T
-      MARCHMTUNE: -mfpmath=sse -msse2
-      MARCHMTUNENAME: CPU Build Generic
-      DIST_BUILD: with Debugging Symbols
-      DEPLOYNAME: Generic_Debug
-      RTOOLS_VERSION: 40
-    - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
-      archive: r-devel
-      innosetup: 6
-      cran: true
-      MAKE_32BIT: 32-bit
-      MAKE_DISTRIBUTION: distribution
-      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
-      MARCHMTUNENAME: CPU Build CoreI7 with AVX2
-      DIST_BUILD: without Debugging Symbols
-      DEPLOYNAME: CoreI7_mAVX2_NoDebug
-      RTOOLS_VERSION: 40
-    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
-      archive: r-patched
-      innosetup: 6
-      cran: true
-      MAKE_32BIT: 32-bit
-      MAKE_DISTRIBUTION: distribution
-      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
-      MARCHMTUNENAME: CPU Build CoreI7 with AVX2
-      DIST_BUILD: without Debugging Symbols
-      DEPLOYNAME: CoreI7_mAVX2_NoDebug
-      RTOOLS_VERSION: 40
     - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       archive: r-devel
       innosetup: 6
@@ -100,6 +67,17 @@ environment:
       MARCHMTUNENAME: CPU Build Generic
       DIST_BUILD: with Debugging Symbols
       DEPLOYNAME: Generic_Debug
+      RTOOLS_VERSION: 40
+    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+      archive: r-patched
+      innosetup: 6
+      cran: true
+      MAKE_32BIT: 32-bit DEBUG=T
+      MAKE_DISTRIBUTION: distribution DEBUG=T
+      MARCHMTUNE: -mfpmath=sse -msse2
+      MARCHMTUNENAME: CPU Build Generic
+      DIST_BUILD: with Debugging Symbols
+      DEPLOYNAME: Generic_Debug
       RTOOLS_VERSION: 35
     - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       archive: r-devel
@@ -111,7 +89,29 @@ environment:
       MARCHMTUNENAME: CPU Build CoreI7 with AVX2
       DIST_BUILD: without Debugging Symbols
       DEPLOYNAME: CoreI7_mAVX2_NoDebug
+      RTOOLS_VERSION: 40
+    - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
+      archive: r-devel
+      innosetup: 6
+      cran: true
+      MAKE_32BIT: 32-bit
+      MAKE_DISTRIBUTION: distribution
+      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
+      MARCHMTUNENAME: CPU Build CoreI7 with AVX2
+      DIST_BUILD: without Debugging Symbols
+      DEPLOYNAME: CoreI7_mAVX2_NoDebug
       RTOOLS_VERSION: 35
+    - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
+      archive: r-patched
+      innosetup: 6
+      cran: true
+      MAKE_32BIT: 32-bit
+      MAKE_DISTRIBUTION: distribution
+      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
+      MARCHMTUNENAME: CPU Build CoreI7 with AVX2
+      DIST_BUILD: without Debugging Symbols
+      DEPLOYNAME: CoreI7_mAVX2_NoDebug
+      RTOOLS_VERSION: 40
     - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       archive: r-patched
       innosetup: 6
