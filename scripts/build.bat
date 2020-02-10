@@ -117,56 +117,6 @@ dir C:\rtools40
 
 IF "%rtoolsver%"=="40" (
 
-  echo BEGIN - BEFORE custom EOPTS - MkRules.local.in.40
-  echo type %SOURCEDIR%\files\MkRules.local.in.40
-       type %SOURCEDIR%\files\MkRules.local.in.40              2> nul
-  echo AFTER - BEFORE custom EOPTS - MkRules.local.in.40
-
-  REM SURGERY
-  REM Some Thanks capabilities()  extSoftVersion()
-
-  REM NOTE
-  REM https://www.stats.ox.ac.uk/pub/Rtools/goodies/ICU_531.zip
-  REM layout header files directory not used
-  REM https://cran.r-project.org/doc/manuals/r-release/R-admin.html
-
-  echo mkdir C:\rtools40\mingw_libs
-       mkdir C:\rtools40\mingw_libs
-  echo mkdir C:\rtools40\mingw_libs\lib\i386
-       mkdir C:\rtools40\mingw_libs\lib\i386
-  echo mkdir C:\rtools40\mingw_libs\lib\x64
-       mkdir C:\rtools40\mingw_libs\lib\x64
-  echo mkdir C:\rtools40\mingw_libs\include\unicode
-       mkdir C:\rtools40\mingw_libs\include\unicode
-
-  echo dir C:\rtools40\mingw32\lib\*icu*.a
-       dir C:\rtools40\mingw32\lib\*icu*.a
-  echo copy /V /Y C:\rtools40\mingw32\lib\*icu*.a  C:\rtools40\mingw_libs\lib\i386
-       copy /V /Y C:\rtools40\mingw32\lib\*icu*.a  C:\rtools40\mingw_libs\lib\i386
-  echo dir C:\rtools40\mingw_libs\lib\i386
-       dir C:\rtools40\mingw_libs\lib\i386
-
-  echo dir C:\rtools40\mingw64\lib\*icu*.a
-       dir C:\rtools40\mingw64\lib\*icu*.a
-  echo copy /V /Y C:\rtools40\mingw64\lib\*icu*.a  C:\rtools40\mingw_libs\lib\x64
-       copy /V /Y C:\rtools40\mingw64\lib\*icu*.a  C:\rtools40\mingw_libs\lib\x64
-  echo dir C:\rtools40\mingw_libs\lib\x64
-       dir C:\rtools40\mingw_libs\lib\x64
-
-  echo dir C:\rtools40\mingw64\include\unicode\*.*
-       dir C:\rtools40\mingw64\include\unicode\*.*
-  echo copy /V /Y C:\rtools40\mingw64\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
-       copy /V /Y C:\rtools40\mingw64\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
-  echo dir C:\rtools40\mingw_libs\include\unicode
-       dir C:\rtools40\mingw_libs\include\unicode
-
-  echo dir C:\rtools40\mingw32\include\unicode\*.*
-       dir C:\rtools40\mingw32\include\unicode\*.*
-  echo copy /V /Y C:\rtools40\mingw32\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
-       copy /V /Y C:\rtools40\mingw32\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
-  echo dir C:\rtools40\mingw_libs\include\unicode
-       dir C:\rtools40\mingw_libs\include\unicode
-
   echo copy /V /Y %SOURCEDIR%\files\MkRules.local.in.40 %SOURCEDIR%\files\MkRules.local.in
        copy /V /Y %SOURCEDIR%\files\MkRules.local.in.40 %SOURCEDIR%\files\MkRules.local.in
 
