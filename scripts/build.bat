@@ -108,11 +108,18 @@ echo type %SOURCEDIR%\files\MkRules.local.in
 type %SOURCEDIR%\files\MkRules.local.in                2> nul
 echo AFTER - BEFORE custom EOPTS - MkRules.local.in
 
+echo SEE MY ENVIRONMENT VARIABLES
+set
+echo SEE MY DIR
+dir
+dir C:\Rtools
+dir C:\rtools40
+
 IF "%rtoolsver%"=="40" (
 
   echo BEGIN - BEFORE custom EOPTS - MkRules.local.in.40
   echo type %SOURCEDIR%\files\MkRules.local.in.40
-  type %SOURCEDIR%\files\MkRules.local.in.40              2> nul
+       type %SOURCEDIR%\files\MkRules.local.in.40              2> nul
   echo AFTER - BEFORE custom EOPTS - MkRules.local.in.40
 
   REM SURGERY
@@ -123,29 +130,45 @@ IF "%rtoolsver%"=="40" (
   REM layout header files directory not used
   REM https://cran.r-project.org/doc/manuals/r-release/R-admin.html
 
-  mkdir "C:\rtools40\mingw_libs"
-  mkdir "C:\rtools40\mingw_libs\lib\i386"
-  mkdir "C:\rtools40\mingw_libs\lib\x64"
-  mkdir "C:\rtools40\mingw_libs\include\unicode"
+  echo mkdir C:\rtools40\mingw_libs
+       mkdir C:\rtools40\mingw_libs
+  echo mkdir C:\rtools40\mingw_libs\lib\i386
+       mkdir C:\rtools40\mingw_libs\lib\i386
+  echo mkdir C:\rtools40\mingw_libs\lib\x64
+       mkdir C:\rtools40\mingw_libs\lib\x64
+  echo mkdir C:\rtools40\mingw_libs\include\unicode
+       mkdir C:\rtools40\mingw_libs\include\unicode
 
-  dir C:\rtools40\mingw32\lib\*icu*.a
-  copy /V /Y C:\rtools40\mingw32\lib\*icu*.a  C:\rtools40\mingw_libs\lib\i386
-  dir C:\rtools40\mingw_libs\lib\i386
+  echo dir C:\rtools40\mingw32\lib\*icu*.a
+       dir C:\rtools40\mingw32\lib\*icu*.a
+  echo copy /V /Y C:\rtools40\mingw32\lib\*icu*.a  C:\rtools40\mingw_libs\lib\i386
+       copy /V /Y C:\rtools40\mingw32\lib\*icu*.a  C:\rtools40\mingw_libs\lib\i386
+  echo dir C:\rtools40\mingw_libs\lib\i386
+       dir C:\rtools40\mingw_libs\lib\i386
 
-  dir C:\rtools40\mingw64\lib\*icu*.a
-  copy /V /Y C:\rtools40\mingw64\lib\*icu*.a  C:\rtools40\mingw_libs\lib\x64
-  dir C:\rtools40\mingw_libs\lib\x64
+  echo dir C:\rtools40\mingw64\lib\*icu*.a
+       dir C:\rtools40\mingw64\lib\*icu*.a
+  echo copy /V /Y C:\rtools40\mingw64\lib\*icu*.a  C:\rtools40\mingw_libs\lib\x64
+       copy /V /Y C:\rtools40\mingw64\lib\*icu*.a  C:\rtools40\mingw_libs\lib\x64
+  echo dir C:\rtools40\mingw_libs\lib\x64
+       dir C:\rtools40\mingw_libs\lib\x64
 
-  dir C:\rtools40\mingw64\include\unicode\*.*
-  copy /V /Y C:\rtools40\mingw64\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
-  dir C:\rtools40\mingw_libs\include\unicode
+  echo dir C:\rtools40\mingw64\include\unicode\*.*
+       dir C:\rtools40\mingw64\include\unicode\*.*
+  echo copy /V /Y C:\rtools40\mingw64\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
+       copy /V /Y C:\rtools40\mingw64\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
+  echo dir C:\rtools40\mingw_libs\include\unicode
+       dir C:\rtools40\mingw_libs\include\unicode
 
-  dir C:\rtools40\mingw32\include\unicode\*.*
-  copy /V /Y C:\rtools40\mingw32\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
-  dir C:\rtools40\mingw_libs\include\unicode
+  echo dir C:\rtools40\mingw32\include\unicode\*.*
+       dir C:\rtools40\mingw32\include\unicode\*.*
+  echo copy /V /Y C:\rtools40\mingw32\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
+       copy /V /Y C:\rtools40\mingw32\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
+  echo dir C:\rtools40\mingw_libs\include\unicode
+       dir C:\rtools40\mingw_libs\include\unicode
 
-  REM
-  copy /V /Y %SOURCEDIR%\files\MkRules.local.in.40 %SOURCEDIR%\files\MkRules.local.in
+  echo copy /V /Y %SOURCEDIR%\files\MkRules.local.in.40 %SOURCEDIR%\files\MkRules.local.in
+       copy /V /Y %SOURCEDIR%\files\MkRules.local.in.40 %SOURCEDIR%\files\MkRules.local.in
 
 )
 
