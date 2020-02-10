@@ -34,7 +34,7 @@ EXT_LIBS = @home@/extsoft
 
 ## For installer
 ISDIR = C:/Program Files (x86)/Inno Setup @inno@
-TI5 = $(RTOOLS)/texinfo5
+TI5 = $(RTOOLS)/usr/share/texinfo
 MAKEINFO = C:/Strawberry/perl/bin/perl -I$(TI5) $(TI5)/texi2any
 TEXI2ANY = C:/Strawberry/perl/bin/perl -I$(TI5) $(TI5)/texi2any
 BUILD_HTML = YES 
