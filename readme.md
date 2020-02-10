@@ -58,14 +58,14 @@ environment:
 
 ### Major version of Inno Setup is explicitly chosen
 
-Configuration is in the files: appveyor.yml, MkRules.local.in, and build.bat.
+Configuration is in the files: appveyor.yml, MkRules.local.in.40, MkRules.local.in, and build.bat.
 
 From rwinlib/base (May 5, 2019), see this commit.
 This commit was never applied to AndreMikulec/base.
 https://github.com/rwinlib/base/commit/8e4eeb2e44bf23764ffdf11e1366f01140829179
 
 
-### Rtools version is explicitly chosen
+### Rtools version may be explicitly chosen
 
 The OPB version of R for windows only chooses to build on the default Rtools version.
 Multiple(or different) Rtools %RTOOLS_VERSION% versions are chosen.
@@ -86,6 +86,8 @@ From the OPB version of R for windows in the file
 https://github.com/rwinlib/base differences (in here) follow:
 
 Because 64-bit Windows does not support dwarf-*, in the
+file https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in.40
+and in the
 file https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in, added, is
 ```
 G_FLAG = -ggdb3

@@ -1,0 +1,54 @@
+#-*- Makefile -*-
+
+RTOOLS = C:/rtools40
+# COMPILED_BY = # MkRules.rules CAN dynamically(sed) determine this
+
+### For multilib compiler ###
+# TOOL_PATH = C:/Rtools/gcc-4.6.3/bin/
+# MULTI = @win@
+# ICU_PATH = @build@/ICU
+###
+
+### For non-multilib compilers ###
+WIN = @win@
+# BINPREF = ${BINPREF} # NO: SEE MkRules.rules
+BINPREF = $(RTOOLS)/mingw32/bin/
+BINPREF64 = $(RTOOLS)/mingw64/bin/
+ICU_PATH = $(RTOOLS)/mingw_libs
+###
+
+USE_LIBCURL = YES
+USE_ATLAS = NO
+CURL_PATH = @home@/libcurl
+CURL_LIBS = -lcurl-dualssl -lssh2 -lz -lssl -lcrypto -lgdi32 -lws2_32 -lcrypt32 -lwldap32
+USE_ICU = YES
+ICU_LIBS = -lsicuin -lsicuuc -lsicudt -lstdc++
+BUILD_HTML = YES
+CAIRO_HOME = @home@/cairo
+OPENMP = -fopenmp
+EXT_LIBS = @home@/extsoft
+
+## Ignore pedantic warnings that clutter logs
+# -Wno-unused-variable -Wno-unused-function -Wno-unused-but-set-variable
+# EOPTS = -mtune=generic
+
+## For installer
+ISDIR = C:/Program Files (x86)/Inno Setup @inno@
+TI5 = $(RTOOLS)/texinfo5
+MAKEINFO = C:/Strawberry/perl/bin/perl -I$(TI5) $(TI5)/texi2any
+TEXI2ANY = C:/Strawberry/perl/bin/perl -I$(TI5) $(TI5)/texi2any
+BUILD_HTML = YES 
+MIKTEX = TRUE
+HOME32 = @home32@
+
+## Fix for MiKTeX removing texi2dvi. NB: What happens here is that we
+## set TEXI2DVI to run 'texify' with the TEXINDEX environment variable set.
+TEXI2DVI = TEXINDEX=$(RTOOLS)/bin/texindex.exe texify
+
+## For R-devel only:
+CAIRO_LIBS = "-L$(CAIRO_HOME)/win$(WIN) -lcairo -lfreetype -lpng -lpixman-1 -lharfbuzz -lbz2 -lz -lgdi32 -lmsimg32"
+
+###
+###  Andre Mikulec
+###
+G_FLAG = -ggdb3

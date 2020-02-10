@@ -119,6 +119,7 @@ Function InstallRtools {
   Else {
     $rtoolsver = $env:RTOOLS_VERSION
   }
+  $env:rtoolsver = $rtoolsver
 
   if ($rtoolsver -eq "40") {
 
