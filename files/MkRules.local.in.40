@@ -15,7 +15,6 @@ WIN = @win@
 # BINPREF = ${BINPREF} # NO: SEE MkRules.rules
 BINPREF = $(RTOOLS)/mingw32/bin/
 BINPREF64 = $(RTOOLS)/mingw64/bin/
-# THIS SHOULD WORK, BUT I AM CHICKENING OUT
 # ICU_PATH = $(RTOOLS)/mingw_libs
 ICU_PATH = $(RTOOLSCURRENTOLD)/mingw_libs
 ###
@@ -37,7 +36,7 @@ EXT_LIBS = @home@/extsoft
 
 ## For installer
 ISDIR = C:/Program Files (x86)/Inno Setup @inno@
-TI5 = $(RTOOLSCURRENTOLD)/texinfo
+TI5 = $(RTOOLSCURRENTOLD)/texinfo5
 MAKEINFO = C:/Strawberry/perl/bin/perl -I$(TI5) $(TI5)/texi2any
 TEXI2ANY = C:/Strawberry/perl/bin/perl -I$(TI5) $(TI5)/texi2any
 BUILD_HTML = YES 
