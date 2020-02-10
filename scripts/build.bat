@@ -124,17 +124,17 @@ IF "%rtoolsver%"=="40" (
   REM https://cran.r-project.org/doc/manuals/r-release/R-admin.html
 
   mkdir "C:\rtools40\mingw_libs"
-  mkdir "C:\rtools40/mingw_libs\lib\i386"
+  mkdir "C:\rtools40\mingw_libs\lib\i386"
   mkdir "C:\rtools40\mingw_libs\lib\x64"
   mkdir "C:\rtools40\mingw_libs\include\unicode"
 
   dir C:\rtools40\mingw32\lib\*icu*.a
-  copy /V /Y C:\rtools40\mingw32\lib\*icu*.a  C:\rtools40/mingw_libs/lib\i386
-  dir C:\rtools40/mingw_libs/lib\i386
+  copy /V /Y C:\rtools40\mingw32\lib\*icu*.a  C:\rtools40\mingw_libs\lib\i386
+  dir C:\rtools40\mingw_libs\lib\i386
 
   dir C:\rtools40\mingw64\lib\*icu*.a
-  copy /V /Y C:\rtools40\mingw64\lib\*icu*.a  C:\rtools40/mingw_libs/lib\x64
-  dir C:\rtools40/mingw_libs/lib\x64
+  copy /V /Y C:\rtools40\mingw64\lib\*icu*.a  C:\rtools40\mingw_libs\lib\x64
+  dir C:\rtools40\mingw_libs\lib\x64
 
   dir C:\rtools40\mingw64\include\unicode\*.*
   copy /V /Y C:\rtools40\mingw64\include\unicode\*.* C:\rtools40\mingw_libs\include\unicode
