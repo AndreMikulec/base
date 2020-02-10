@@ -125,6 +125,16 @@ Function InstallRtools {
 
     $rtoolsurl =  $CRAN + "/bin/windows/testing/rtools40-x86_64.exe"
 
+    $rtoolsvercurrentold = $(Invoke-WebRequest ($CRAN + "/bin/windows/Rtools/VERSION.txt")).Content.Split(' ')[2].Split('.')[0..1] -Join ''
+
+    $rtoolsurlcurrentold =  $CRAN + "/bin/windows/Rtools/Rtools$rtoolsvercurrentold.exe"
+
+    Progress ("Downloading Rtools Current-Old from: " + $rtoolsurlcurrentold)
+    & "C:\Program Files\Git\mingw64\bin\curl.exe" -s -o ../Rtools-current-old.exe.exe -L $rtoolsurlcurrentold
+
+    Progress "Running Rtools Current-Old installer"
+    Start-Process -FilePath ..\Rtools-current-old.exe.exe -ArgumentList "/TYPE=full /VERYSILENT" -NoNewWindow -Wait
+
     }  Else {
 
     $rtoolsurl =  $CRAN + "/bin/windows/Rtools/Rtools$rtoolsver.exe"
@@ -147,11 +157,10 @@ Function InstallRtools {
   Else {
     $gcc_path = $env:GCC_PATH
   }
-  $env:PATH = $RtoolsDrive + '\Rtools\bin;' + $RtoolsDrive + '\Rtools\MinGW\bin;' + $RtoolsDrive + '\Rtools\' + $gcc_path + '\bin;' + $env:PATH
 
   if ($rtoolsver -eq "40") {
 
-    $env:PATH = $RtoolsDrive + '\rtools40\bin;' + $RtoolsDrive + '\rtools40\MinGW\bin;' + $RtoolsDrive + '\rtools40\' + $gcc_path + '\bin;' + $env:PATH
+    $env:PATH = $RtoolsDrive + '\rtools40\usr\bin;' + $env:PATH
 
     }  Else {
 
