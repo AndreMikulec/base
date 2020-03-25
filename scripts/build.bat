@@ -298,10 +298,11 @@ REM REM https://ci.appveyor.com/project/jeroen/base
 REM
 REM MY total time takes 40 mintues
 REM R-Devel.tar.gz
-REM 
+REM
 REM total time 73 minutes ( so J Ooms has more time allowed by Appveyor )
 REM https://ci.appveyor.com/project/jeroen/base
 REM
+REM set R_CRAN_WEB=https://cran.rstudio.com
 REM make check-all 2>&1 | tee %BUILDDIR%/check.log
 REM if %errorlevel% neq 0 (
 REM   echo ERROR: 'make check-all' failure! Inspect check.log for details.
