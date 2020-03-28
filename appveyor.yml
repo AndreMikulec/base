@@ -34,7 +34,7 @@ version: 0.1.0-{build}-{branch}
 #   (2) 'archive' r-patched changed to r-devel ('archive' CAN ONLY be ONE of 'r-patched' xor 'r-devel')
 
 # Do not build on tags (GitHub and BitBucket)
-skip_tags: true
+### skip_tags: true
 
 # Start builds on tags only (GitHub and BitBucket)
 # skip_non_tags: true
