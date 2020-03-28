@@ -85,7 +85,7 @@ environment:
       cran: true
       MAKE_32BIT: 32-bit
       MAKE_DISTRIBUTION: distribution
-      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
+      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -mavx -mavx2 -O3 -funroll-loops -ffast-math
       MARCHMTUNENAME: CPU Build CoreI7 with AVX2
       DIST_BUILD: without Debugging Symbols
       DEPLOYNAME: CoreI7_mAVX2_NoDebug
@@ -96,7 +96,7 @@ environment:
       cran: true
       MAKE_32BIT: 32-bit
       MAKE_DISTRIBUTION: distribution
-      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
+      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -mavx -mavx2 -O3 -funroll-loops -ffast-math
       MARCHMTUNENAME: CPU Build CoreI7 with AVX2
       DIST_BUILD: without Debugging Symbols
       DEPLOYNAME: CoreI7_mAVX2_NoDebug
@@ -107,7 +107,7 @@ environment:
       cran: true
       MAKE_32BIT: 32-bit
       MAKE_DISTRIBUTION: distribution
-      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
+       MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -mavx -mavx2 -O3 -funroll-loops -ffast-math
       MARCHMTUNENAME: CPU Build CoreI7 with AVX2
       DIST_BUILD: without Debugging Symbols
       DEPLOYNAME: CoreI7_mAVX2_NoDebug
@@ -118,7 +118,7 @@ environment:
       cran: true
       MAKE_32BIT: 32-bit
       MAKE_DISTRIBUTION: distribution
-      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -Ofast -mavx -mavx2
+      MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -mavx -mavx2 -O3 -funroll-loops -ffast-math
       MARCHMTUNENAME: CPU Build CoreI7 with AVX2
       DIST_BUILD: without Debugging Symbols
       DEPLOYNAME: CoreI7_mAVX2_NoDebug
