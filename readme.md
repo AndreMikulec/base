@@ -90,7 +90,7 @@ file https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in.40
 and in the
 file https://github.com/AndreMikulec/base/blob/master/files/MkRules.local.in, added, is
 ```
-G_FLAG = -ggdb3
+G_FLAG = -ggdb
 ```
 In the Debug variant of R `Generic_Debug` in the
 file https://github.com/AndreMikulec/base/blob/master/scripts/build.bat, changed, is from
