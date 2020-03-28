@@ -33,6 +33,16 @@ version: 0.1.0-{build}-{branch}
 #   (1) 'source' R-latest.tar.gz changed to R-devel.tar.gz
 #   (2) 'archive' r-patched changed to r-devel ('archive' CAN ONLY be ONE of 'r-patched' xor 'r-devel')
 
+# Do not build on tags (GitHub and BitBucket)
+skip_tags: true
+
+# Start builds on tags only (GitHub and BitBucket)
+# skip_non_tags: true
+
+branches:
+  only:
+    - master
+
 environment:
   matrix:
     - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
@@ -237,12 +247,6 @@ on_failure:
   - echo https://ftp.opencpu.org/current/check.log
   - echo https://ftp.opencpu.org/archive/r-patched/svn_number/check.log
   - echo https://ftp.opencpu.org/archive/r-release/R-x.y.z/check.log
-
-# Do not build on tags (GitHub and BitBucket)
-skip_tags: true
-
-# Start builds on tags only (GitHub and BitBucket)
-# skip_non_tags: true
 
 deploy:
   release: "%APPVEYOR_PROJECT_SLUG%_%appveyor_build_version%_%archive%_%target%_%revision%_%DEPLOYNAME%_Rtools_%RTOOLS_VERSION%.zip"
