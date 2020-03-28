@@ -188,7 +188,7 @@ REM NOTE MkRules.local (in the MAKING process) is fed into etc/Makeconf
 REM
 REM sed -e . MkRules VARIABLE SUBSTITUTION . etc/Makeconf > ../../../etc/i386/Makeconf
 REM
-sed -i "s/-gdwarf-2/-ggdb3/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
+sed -i "s/-gdwarf-2/-ggdb/g" %R_HOME%/src/gnuwin32/fixed/etc/Makeconf
 
 echo BEGIN  - AFTER Custom  DEBUGFLAG - Makeconf
 echo %R_HOME%/src/gnuwin32/fixed/etc/Makeconf

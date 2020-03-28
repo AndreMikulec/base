@@ -127,7 +127,7 @@ DEBUGFLAG=-gdwarf-2
 ```
 to
 ```
-DEBUGFLAG=-ggdb3
+DEBUGFLAG=-ggdb
 ```
 
 
