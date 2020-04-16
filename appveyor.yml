@@ -48,7 +48,6 @@ environment:
     - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       archive: r-devel
       innosetup: 6
-      cran: true
       MAKE_32BIT: 32-bit DEBUG=T
       MAKE_DISTRIBUTION: distribution DEBUG=T
       MARCHMTUNE: -mfpmath=sse -msse2
@@ -59,7 +58,6 @@ environment:
     - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       archive: r-devel
       innosetup: 6
-      cran: true
       MAKE_32BIT: 32-bit DEBUG=T
       MAKE_DISTRIBUTION: distribution DEBUG=T
       MARCHMTUNE: -mfpmath=sse -msse2
@@ -70,7 +68,6 @@ environment:
     - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       archive: r-patched
       innosetup: 6
-      cran: true
       MAKE_32BIT: 32-bit DEBUG=T
       MAKE_DISTRIBUTION: distribution DEBUG=T
       MARCHMTUNE: -mfpmath=sse -msse2
@@ -81,7 +78,6 @@ environment:
     - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       archive: r-patched
       innosetup: 6
-      cran: true
       MAKE_32BIT: 32-bit DEBUG=T
       MAKE_DISTRIBUTION: distribution DEBUG=T
       MARCHMTUNE: -mfpmath=sse -msse2
@@ -92,7 +88,6 @@ environment:
     - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       archive: r-devel
       innosetup: 6
-      cran: true
       MAKE_32BIT: 32-bit
       MAKE_DISTRIBUTION: distribution
       MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -mavx -mavx2 -O3 -funroll-loops -ffast-math
@@ -103,7 +98,6 @@ environment:
     - source: https://cran.r-project.org/src/base-prerelease/R-devel.tar.gz
       archive: r-devel
       innosetup: 6
-      cran: true
       MAKE_32BIT: 32-bit
       MAKE_DISTRIBUTION: distribution
       MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -mavx -mavx2 -O3 -funroll-loops -ffast-math
@@ -114,7 +108,6 @@ environment:
     - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       archive: r-patched
       innosetup: 6
-      cran: true
       MAKE_32BIT: 32-bit
       MAKE_DISTRIBUTION: distribution
       MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -mavx -mavx2 -O3 -funroll-loops -ffast-math
@@ -125,7 +118,6 @@ environment:
     - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
       archive: r-patched
       innosetup: 6
-      cran: true
       MAKE_32BIT: 32-bit
       MAKE_DISTRIBUTION: distribution
       MARCHMTUNE: -mfpmath=sse -msse2 -march=corei7 -mavx -mavx2 -O3 -funroll-loops -ffast-math
@@ -140,11 +132,9 @@ environment:
 # #      archive: r-release
 #     - source: https://stat.ethz.ch/R/daily/R-devel.tar.gz
 #       archive: r-devel
-#       cran: true
 # #    - source: https://stat.ethz.ch/R/daily/R-patched.tar.gz
 #     - source: https://cran.r-project.org/src/base-prerelease/R-latest.tar.gz
 #       archive: r-patched
-#       cran: true
 
 install:
   - ps: |
