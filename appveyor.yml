@@ -41,7 +41,7 @@ skip_tags: true
 
 branches:
   only:
-    - master
+    - NONEXISTENTBRANCH
 
 environment:
   matrix:

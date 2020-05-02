@@ -1,4 +1,12 @@
 
+
+# This repository is retired as of the end of R 3.6.3.
+# The new R 4.0.0+ repository location is https://github.com/AndreMikulec/r-base
+
+```
+
+```
+
 # R for windows `Generic_Debug` and `<CPU optimized>_NoDebug` versions of debug/optimized for C, C++, and Fortran on 32/64 bit Windows
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/AndreMikulec/base)](https://ci.appveyor.com/project/AndreMikulec/base)
 
